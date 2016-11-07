@@ -1,14 +1,53 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context="com.aceshub.portal.Today">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/today" />
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        app:cardBackgroundColor="#7cf6f4ec"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="4dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/today_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="#1974ba"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/today_recview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_lecture_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_add_lecture"
+            app:backgroundTint="#607d8b"
+            app:elevation="10dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>
