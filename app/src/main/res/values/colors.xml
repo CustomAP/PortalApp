@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#77c8f0</color>
+    <color name="colorPrimary">#5698d6</color>
+    <color name="colorPrimaryDark">#306f9f</color>
+    <color name="event_color_01">#50a8da</color>
+    <color name="event_color_02">#dbe27965</color>
+    <color name="event_color_03">#8cea8d</color>
+    <color name="event_color_04">#e4ebad50</color>
 
     <color name="red">#F44336</color>
     <color name="green">#4CAF50</color>
