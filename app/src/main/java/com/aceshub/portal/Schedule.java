@@ -1,4 +1,4 @@
-package com.aceshub.furqan.portal;
+package com.aceshub.portal;
 
 import android.graphics.RectF;
 import android.os.Bundle;
