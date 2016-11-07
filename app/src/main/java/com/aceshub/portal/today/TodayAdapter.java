@@ -73,7 +73,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
                 return false;
             }
         });
-        popup.setGravity(Gravity.RIGHT);
+        popup.setGravity(Gravity.END);
         popup.show();
     }
 
