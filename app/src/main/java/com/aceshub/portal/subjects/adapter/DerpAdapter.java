@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shri.list.R;
+import com.aceshub.portal.subjects.model.ListItem;
+import com.aceshub.portal.R;
+import com.aceshub.portal.subjects.ui.CredsActivity;
 
 import java.util.List;
 
@@ -18,12 +20,12 @@ import java.util.List;
  * Created by Shri on 03-11-2016.
  */
 
-public class DerpAdapter extends RecyclerView.Adapter<com.example.shri.list.adapter.DerpAdapter.DerpHolder>{
+public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
-    private List<com.example.shri.list.model.ListItem> listData;
+    private List<ListItem> listData;
     private LayoutInflater inflater;
 
-    public DerpAdapter(List<com.example.shri.list.model.ListItem> listData, Context c){
+    public DerpAdapter(List<ListItem> listData, Context c){
         this.inflater = LayoutInflater.from(c);
         this.listData = listData;
     }
@@ -36,12 +38,12 @@ public class DerpAdapter extends RecyclerView.Adapter<com.example.shri.list.adap
 
     @Override
     public void onBindViewHolder(final DerpHolder holder, int position) {
-        final com.example.shri.list.model.ListItem item = listData.get(position);
+        final ListItem item = listData.get(position);
         holder.title.setText(item.getTitle());
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent i = new Intent(v.getContext(), com.example.shri.list.ui.CredsActivity.class);
+                final Intent i = new Intent(v.getContext(), CredsActivity.class);
                 i.putExtra("Subject", holder.title.getText().toString());Toast.makeText(v.getContext(),holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
                 v.getContext().startActivity(i);
             }

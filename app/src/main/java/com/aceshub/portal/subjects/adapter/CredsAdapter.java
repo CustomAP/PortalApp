@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.shri.list.R;
+import com.aceshub.portal.subjects.model.CredsItem;
+import com.aceshub.portal.R;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class CredsAdapter extends RecyclerView.Adapter<CredsAdapter.CredsHolder>{
 
-    private List<com.example.shri.list.model.CredsItem> listData;
+    private List<CredsItem> listData;
     private LayoutInflater inflater;
     int val;
-    public CredsAdapter(List<com.example.shri.list.model.CredsItem> listData, Context c){
+    public CredsAdapter(List<CredsItem> listData, Context c){
         this.inflater = LayoutInflater.from(c);
         this.listData = listData;
 
@@ -35,7 +36,7 @@ public class CredsAdapter extends RecyclerView.Adapter<CredsAdapter.CredsHolder>
 
     @Override
     public void onBindViewHolder(final CredsHolder holder, int position) {
-        final com.example.shri.list.model.CredsItem item = listData.get(position);
+        final CredsItem item = listData.get(position);
         holder.title.setText(item.getName());
         holder.b1.setText(item.getPercentage());
 

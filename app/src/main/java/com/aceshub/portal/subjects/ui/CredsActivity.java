@@ -18,8 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.shri.list.R;
-import com.example.shri.list.adapter.CredsAdapter;
+import com.aceshub.portal.subjects.adapter.CredsAdapter;
+import com.aceshub.portal.subjects.model.CredsData;
+import com.aceshub.portal.R;
 
 public class CredsActivity extends AppCompatActivity {
 
@@ -67,8 +68,8 @@ public class CredsActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(com.example.shri.list.ui.CredsActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
-                PlaceholderFragment.adapter = new CredsAdapter(com.example.shri.list.model.CredsData.getListData(position), PlaceholderFragment.rootView.getContext());
+                Toast.makeText(CredsActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+                PlaceholderFragment.adapter = new CredsAdapter(CredsData.getListData(position), PlaceholderFragment.rootView.getContext());
                 PlaceholderFragment.recview.setAdapter(PlaceholderFragment.adapter);
             }
             @Override
@@ -80,14 +81,9 @@ public class CredsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        com.example.shri.list.ui.CredsActivity.this.finish();
+        CredsActivity.this.finish();
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_creds, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,7 +136,7 @@ public class CredsActivity extends AppCompatActivity {
 
             recview.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-            adapter = new CredsAdapter(com.example.shri.list.model.CredsData.getListData(0), rootView.getContext());
+            adapter = new CredsAdapter(CredsData.getListData(0), rootView.getContext());
             recview.setAdapter(adapter);
 
 //            Toast.makeText(inflater.getContext(), , Toast.LENGTH_SHORT).show();

@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.shri.list.R;
+import com.aceshub.portal.subjects.adapter.DerpAdapter;
+import com.aceshub.portal.subjects.model.DerpData;
+import com.aceshub.portal.R;
 
 public class ListActivity extends AppCompatActivity {
     private RecyclerView recview;
-    private com.example.shri.list.adapter.DerpAdapter adapter;
+    private DerpAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,7 @@ public class ListActivity extends AppCompatActivity {
 
         recview.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new com.example.shri.list.adapter.DerpAdapter(com.example.shri.list.model.DerpData.getListData(), this);
+        adapter = new DerpAdapter(DerpData.getListData(), this);
         recview.setAdapter(adapter);
 
 
