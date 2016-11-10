@@ -12,15 +12,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.aceshub.portal.R;
 import com.aceshub.portal.subjects.adapter.CredsAdapter;
 import com.aceshub.portal.subjects.model.CredsData;
-import com.aceshub.portal.R;
 
 public class CredsActivity extends AppCompatActivity {
 
@@ -68,7 +67,6 @@ public class CredsActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(CredsActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
                 PlaceholderFragment.adapter = new CredsAdapter(CredsData.getListData(position), PlaceholderFragment.rootView.getContext());
                 PlaceholderFragment.recview.setAdapter(PlaceholderFragment.adapter);
             }
@@ -104,13 +102,14 @@ public class CredsActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        private static RecyclerView recview;
-        private static View rootView;
-        private static CredsAdapter adapter;/**
+        /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static RecyclerView recview;
+        private static View rootView;
+        private static CredsAdapter adapter;
 
         public PlaceholderFragment() {
         }
