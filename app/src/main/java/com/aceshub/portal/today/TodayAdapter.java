@@ -1,6 +1,7 @@
 package com.aceshub.portal.today;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
@@ -16,17 +17,20 @@ import android.widget.TextView;
 
 import com.aceshub.portal.R;
 import com.aceshub.portal.Today;
+import com.aceshub.portal.attendence.AttendanceActivity;
 
 import java.util.List;
 
 public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> {
 
+    Context context;
     private List<TodayListItem> data;
     private int[] colors;
 
     public TodayAdapter(List<TodayListItem> data, Context context) {
         this.data = data;
         colors = context.getResources().getIntArray(R.array.colors);
+        this.context = context;
     }
 
     @Override
@@ -82,7 +86,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
         return data.size();
     }
 
-    class DataHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener {
+    class DataHolder extends RecyclerView.ViewHolder {
 
         private TextView today_time;
         private TextView today_subject;
@@ -90,7 +94,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
         private ImageButton menu;
         private Context context;
 
-        DataHolder(View itemView) {
+        DataHolder(final View itemView) {
             super(itemView);
 
             Typeface typeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "Fresca-Regular.ttf");
@@ -102,15 +106,17 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
             today_subject.setTypeface(typeface);
 
             card = (CardView) itemView.findViewById(R.id.today_listitem_card);
-            card.setOnClickListener(this);
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), AttendanceActivity.class);
+                    context.startActivity(intent);
+                }
+            });
 
             menu = (ImageButton) itemView.findViewById((R.id.menu_imgbtn));
 
             context = itemView.getContext();
-        }
-
-        @Override
-        public void onClick(View v) {
         }
 
         private int getColor(String string) {
