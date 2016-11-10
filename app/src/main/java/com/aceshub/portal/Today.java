@@ -56,7 +56,7 @@ public class Today extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.today_recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new TodayAdapter(TodayData.getData(), getActivity());
+        adapter = new TodayAdapter(TodayData.getData(), getContext());
         recyclerView.setAdapter(adapter);
 
         dateTv = (TextView) view.findViewById(R.id.today_date_tv);
