@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +53,7 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
     class DerpHolder extends RecyclerView.ViewHolder {
 
-        Button b1, b2;
+        ImageView b1, b2;
         private TextView title;
         private View container;
 
@@ -62,8 +62,8 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
             super(itemView);
 
             title = (TextView) itemView.findViewById(R.id.t1);
-            b1 = (Button) itemView.findViewById(R.id.b1);
-            b2 = (Button) itemView.findViewById(R.id.b2);
+            b1 = (ImageView) itemView.findViewById(R.id.b1);
+            b2 = (ImageView) itemView.findViewById(R.id.b2);
 
         }
     }
