@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="190dp"
     android:background="@drawable/navback"
-    android:orientation="vertical">
+    >
 
 
     <TextView
