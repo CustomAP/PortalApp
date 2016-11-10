@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.aceshub.portal.today.AddLectureDialog;
 import com.aceshub.portal.today.TodayAdapter;
 import com.aceshub.portal.today.TodayData;
@@ -31,13 +30,18 @@ public class Today extends Fragment {
     public static TodayAdapter adapter;
     TextView dateTv;
     FloatingActionButton addLectureFab;
-
+    View.OnClickListener addLecture = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AddLectureDialog dialog = new AddLectureDialog(getActivity());
+            dialog.show();
+        }
+    };
     private RecyclerView recyclerView;
 
     public Today() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +49,7 @@ public class Today extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_today, container, false);
     }
-/*
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -72,19 +76,11 @@ public class Today extends Fragment {
         addLectureFab.setOnClickListener(addLecture);
     }
 
-    View.OnClickListener addLecture = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AddLectureDialog dialog = new AddLectureDialog(getActivity());
-            dialog.show();
-        }
-    };
-
     public void addItems(List<TodayListItem> items) {
         for (TodayListItem item : items) {
             TodayData.addData(item);
             adapter.notifyItemInserted(TodayData.getSize() - 1);
         }
-    }*/
+    }
 
 }
