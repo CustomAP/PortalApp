@@ -10,15 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aceshub.portal.subjects.model.ListItem;
 import com.aceshub.portal.R;
+import com.aceshub.portal.subjects.model.ListItem;
 import com.aceshub.portal.subjects.ui.CredsActivity;
 
 import java.util.List;
-
-/**
- * Created by Shri on 03-11-2016.
- */
 
 public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
@@ -57,8 +53,8 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
     class DerpHolder extends RecyclerView.ViewHolder {
 
-        private TextView title;
         Button b1, b2;
+        private TextView title;
         private View container;
 
         public DerpHolder(View itemView) {
