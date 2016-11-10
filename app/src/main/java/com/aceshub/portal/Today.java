@@ -45,7 +45,7 @@ public class Today extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_today, container, false);
     }
-
+/*
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -85,6 +85,6 @@ public class Today extends Fragment {
             TodayData.addData(item);
             adapter.notifyItemInserted(TodayData.getSize() - 1);
         }
-    }
+    }*/
 
 }
