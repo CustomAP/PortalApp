@@ -44,7 +44,7 @@
         android:layout_marginBottom="28dp"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
-        android:src="@drawable/limbo"
+        android:src="@drawable/profile"
         app:border_color="#FF000000" />
 
 </RelativeLayout>

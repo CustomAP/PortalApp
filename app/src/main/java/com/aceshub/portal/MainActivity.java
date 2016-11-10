@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         //Creating fragments
         fragmentManager = getSupportFragmentManager();              //Initiation
         fragmentTransaction = fragmentManager.beginTransaction();   //Initiation
-        fragmentTransaction.add(R.id.container, new Today());       //Setting Today as first fragment when activity starts
+        fragmentTransaction.add(R.id.main_container, new Today());       //Setting Today as first fragment when activity starts
         fragmentTransaction.commit();
     }
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
     public void addFragment(Fragment fragment) {
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.replace(R.id.main_container, fragment);
         fragmentTransaction.commit();
     }
 }
