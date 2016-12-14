@@ -6,6 +6,7 @@ import java.util.List;
 public class MisData {
 
     private static List<MisListItem> data = new ArrayList<>();
+    private static int absent = 0;
 
     public MisData() {
     }
@@ -28,5 +29,13 @@ public class MisData {
 
     public static void clear() {
         data.clear();
+    }
+
+    public static int getAbsent() {
+        return absent;
+    }
+
+    public static void addAbsent(int count) {
+        MisData.absent += count;
     }
 }

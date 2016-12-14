@@ -1,10 +1,12 @@
 package com.aceshub.portal.attendence;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.aceshub.portal.R;
@@ -15,19 +17,30 @@ import java.util.List;
 
 public class AttendanceActivity extends AppCompatActivity {
 
-    public int presentNo, absentNo;
-    TextView presentNoTv, absentNoTv;
+    private static Thread update;
     TextView dateTv;
+    private TextView presentNoTv, absentNoTv;
     private RecyclerView recyclerView;
     private MisAdapter adapter;
+    private Button saveAttendance;
+
+    public static void calculate() {
+        update.run();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance);
 
+        setTitle("Attendance");
+
         dateTv = (TextView) findViewById(R.id.mis_date_tv);
         dateTv.setText(new SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()));
+
+        saveAttendance = (Button) findViewById(R.id.button_attendance_save);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "Fresca-Regular.ttf");
+        saveAttendance.setTypeface(typeface);
 
         recyclerView = (RecyclerView) findViewById(R.id.mislist_recyview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,25 +53,32 @@ public class AttendanceActivity extends AppCompatActivity {
         MisData.clear();
         List<MisListItem> items = new ArrayList<>();
         items.add(new MisListItem("111407001"));
-        items.add(new MisListItem("111407011"));
+        items.add(new MisListItem("111407002"));
+        items.add(new MisListItem("111407003"));
+        items.add(new MisListItem("111407004"));
+        items.add(new MisListItem("111407005"));
+        items.add(new MisListItem("111407006"));
         items.add(new MisListItem("111407007"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
-        items.add(new MisListItem("111407042"));
+        items.add(new MisListItem("111407008"));
+        items.add(new MisListItem("111407009"));
+        items.add(new MisListItem("111407010"));
+        items.add(new MisListItem("111407011"));
+        items.add(new MisListItem("111407012"));
+        items.add(new MisListItem("111407013"));
         addItems(items);
 
-        absentNo = items.size();
-        presentNo = 0;
-
-        absentNoTv.setText("A : " + absentNo);
-        presentNoTv.setText("P : " + presentNo);
+        MisData.addAbsent(-MisData.getAbsent());
+        update = new Thread(new Runnable() {
+            public void run() {
+                absentNoTv.post(new Runnable() {
+                    public void run() {
+                        absentNoTv.setText("A : " + MisData.getAbsent());
+                        presentNoTv.setText("P : " + (MisData.getSize() - MisData.getAbsent()));
+                    }
+                });
+            }
+        });
+        update.run();
     }
 
     public void addItems(List<MisListItem> items) {
@@ -68,7 +88,8 @@ public class AttendanceActivity extends AppCompatActivity {
         }
     }
 
-    public void submit(View view) {
+    public void saveAttendance(View view) {
         finish();
     }
+
 }
