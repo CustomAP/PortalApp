@@ -48,8 +48,9 @@ public class Subjects extends Fragment {
                 for (int i = 0; i < listDataHeader.size(); i++) {
                     if (i == groupPosition)
                         continue;
-                    expListView.collapseGroup(i);
+
                 }
+                expListView.animate();
             }
         });
     }

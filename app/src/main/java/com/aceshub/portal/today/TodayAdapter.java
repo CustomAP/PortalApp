@@ -3,6 +3,7 @@ package com.aceshub.portal.today;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,8 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
     private List<TodayListItem> data;
     private int[] colors;
 
+    private TodayListItem tempItem;
+
     public TodayAdapter(List<TodayListItem> data, Context context) {
         this.data = data;
         colors = context.getResources().getIntArray(R.array.colors);
@@ -50,12 +53,12 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(v, holder.menu, position);
+                showPopup(v, holder.menu, position, holder);
             }
         });
     }
 
-    private void showPopup(View view, ImageButton menuButton, final int position) {
+    private void showPopup(View view, ImageButton menuButton, final int position, final DataHolder holder) {
         PopupMenu popup = new PopupMenu(view.getContext(), menuButton);
         MenuInflater inflate = popup.getMenuInflater();
         inflate.inflate(R.menu.today_card_menu, popup.getMenu());
@@ -64,13 +67,24 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.edit:
+                    case R.id.edit_today_menu_button:
 
                         break;
-                    case R.id.delete:
+                    case R.id.delete_today_menu_button:
                         TodayData.remove(position);
                         Today.adapter.notifyDataSetChanged();
                         break;
+                    case R.id.cancel_today_menu_button:
+                        tempItem = data.get(position);
+                        if (!tempItem.isCanceled()) {
+                            holder.card.setForeground(ContextCompat.getDrawable(holder.context, R.drawable.today_subject_flag_canceled));
+                            tempItem.setCanceled(true);
+                        } else {
+                            holder.card.setForeground(null);
+                            tempItem.setCanceled(false);
+                        }
+                        break;
+
                     default:
                         return false;
                 }
