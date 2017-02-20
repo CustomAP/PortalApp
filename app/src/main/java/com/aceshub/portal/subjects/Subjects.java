@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Subjects extends Fragment {
 
-    ExpandableListAdapter listAdapter;
+    ExpandableListAdapter expandableListAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -39,8 +39,8 @@ public class Subjects extends Fragment {
 
         expListView = (ExpandableListView) view.findViewById(R.id.subjects_expandable_layout);
         prepareListData();
-        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
+        expandableListAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
+        expListView.setAdapter(expandableListAdapter);
 
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
@@ -48,9 +48,8 @@ public class Subjects extends Fragment {
                 for (int i = 0; i < listDataHeader.size(); i++) {
                     if (i == groupPosition)
                         continue;
-
+                    expListView.collapseGroup(i);
                 }
-                expListView.animate();
             }
         });
     }
