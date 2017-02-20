@@ -17,17 +17,36 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/mis_tv"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="left"
-            android:padding="11dp"
-            android:text="item"
-            android:textColor="@color/green500"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_weight="5.03"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mis_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:padding="11dp"
+                android:text="item"
+                android:textColor="@color/green500"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="item"
+                android:textColor="@color/green300"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/mis_p_a_text"
@@ -35,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="P"
             android:textColor="@color/green500"
             android:textSize="30sp"
