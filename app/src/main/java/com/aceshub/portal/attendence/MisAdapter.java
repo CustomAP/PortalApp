@@ -60,6 +60,7 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
             }
         };
         private TextView mis_tv;
+        private TextView mis_name_tv;
         private CardView card;
         private boolean absent = true;
         private LinearLayout listitemLinearlayout;
@@ -72,6 +73,9 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
             mis_tv = (TextView) itemView.findViewById(R.id.mis_tv);
             Typeface typeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "Fresca-Regular.ttf");
             mis_tv.setTypeface(typeface);
+
+            mis_name_tv = (TextView) itemView.findViewById(R.id.mis_name_tv);
+            mis_name_tv.setTypeface(typeface);
 
             card = (CardView) itemView.findViewById(R.id.mis_listitem_layout);
             card.setOnClickListener(this);
@@ -93,6 +97,7 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
                 paText.setText("P");
                 paText.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green500, null));
                 mis_tv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green500, null));
+                mis_name_tv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green300, null));
                 MisData.addAbsent(-1);
                 AttendanceActivity.calculate();
 
@@ -103,6 +108,7 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
                 paText.setText("A");
                 paText.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red500, null));
                 mis_tv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red500, null));
+                mis_name_tv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red300, null));
                 MisData.addAbsent(1);
                 AttendanceActivity.calculate();
 
