@@ -1,6 +1,5 @@
 package com.aceshub.portal;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +29,7 @@ public class Today extends Fragment {
     public static TodayAdapter adapter;
     TextView dateTv;
     FloatingActionButton addLectureFab;
+
     View.OnClickListener addLecture = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -37,16 +37,15 @@ public class Today extends Fragment {
             dialog.show();
         }
     };
+
     private RecyclerView recyclerView;
 
     public Today() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_today, container, false);
     }
 

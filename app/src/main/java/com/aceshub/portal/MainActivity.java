@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = fragmentManager.beginTransaction();   //Initiation
         fragmentTransaction.add(R.id.main_container, new Today());       //Setting Today as first fragment when activity starts
         fragmentTransaction.commit();
+
     }
 
     @Override
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity
                         exit = false;
                     }
                 }, 2300);
-
             }
         }
     }

@@ -22,30 +22,35 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         //  setContentView(R.layout.activity_main);
+        //Initialisation of objects should be done together at starting of activity
+        tv1 = (TextView)findViewById(R.id.textView3);
+        et1 = (EditText)findViewById(R.id.Username);
+        et2 = (EditText)findViewById(R.id.Password);
+        b1=(Button)findViewById(R.id.button4);
+
+
+
 
         //Using custom fonts in "assets" directory
 
         //getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.bp_material_button_background));
 
-        tv1 = (TextView)findViewById(R.id.textView3);
-        Typeface tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-Regular.ttf");
+
+       /* Typeface tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-Regular.ttf");
         tv1.setTypeface(tf1);
 
-        tv2 = (TextView)findViewById(R.id.textView4);
+
         Typeface tf2 = Typeface.createFromAsset(getAssets(), "Raleway-Light.ttf");
         tv2.setTypeface(tf2);
 
-        et1 = (EditText)findViewById(R.id.Username);
         Typeface tf3 = Typeface.createFromAsset(getAssets(), "Raleway-Light.ttf");
         et1.setTypeface(tf3);
 
-        et2 = (EditText)findViewById(R.id.Password);
         Typeface tf4 = Typeface.createFromAsset(getAssets(), "Raleway-Light.ttf");
         et2.setTypeface(tf4);
 
-        b1=(Button)findViewById(R.id.button4);
         Typeface tf5 = Typeface.createFromAsset(getAssets(), "Raleway-Light.ttf");
-        b1.setTypeface(tf5);
+        b1.setTypeface(tf5);*/
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
