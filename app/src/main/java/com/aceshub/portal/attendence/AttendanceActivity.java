@@ -2,6 +2,7 @@ package com.aceshub.portal.attendence;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,17 +33,20 @@ public class AttendanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance);
+        dateTv = (TextView) findViewById(R.id.mis_date_tv);
+        saveAttendance = (Button) findViewById(R.id.button_attendance_save);
+        recyclerView = (RecyclerView) findViewById(R.id.mislist_recyview);
 
+        //Setting navigation
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Attendance");
 
-        dateTv = (TextView) findViewById(R.id.mis_date_tv);
         dateTv.setText(new SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()));
 
-        saveAttendance = (Button) findViewById(R.id.button_attendance_save);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Fresca-Regular.ttf");
-        saveAttendance.setTypeface(typeface);
+        //Temporarily commented
+        /*Typeface typeface = Typeface.createFromAsset(getAssets(), "Fresca-Regular.ttf");
+        saveAttendance.setTypeface(typeface);*/
 
-        recyclerView = (RecyclerView) findViewById(R.id.mislist_recyview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MisAdapter(MisData.getData(), this);
         recyclerView.setAdapter(adapter);
@@ -72,8 +76,8 @@ public class AttendanceActivity extends AppCompatActivity {
             public void run() {
                 absentNoTv.post(new Runnable() {
                     public void run() {
-                        absentNoTv.setText("A : " + MisData.getAbsent());
-                        presentNoTv.setText("P : " + (MisData.getSize() - MisData.getAbsent()));
+                        absentNoTv.setText(String.valueOf(MisData.getAbsent()));
+                        presentNoTv.setText(String.valueOf(MisData.getSize() - MisData.getAbsent()));
                     }
                 });
             }
