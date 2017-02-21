@@ -25,7 +25,6 @@ public class Subjects extends Fragment {
     public Subjects() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,19 +38,8 @@ public class Subjects extends Fragment {
 
         expListView = (ExpandableListView) view.findViewById(R.id.subjects_expandable_layout);
         prepareListData();
-        expandableListAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
+        expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), listDataHeader);
         expListView.setAdapter(expandableListAdapter);
-
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                for (int i = 0; i < listDataHeader.size(); i++) {
-                    if (i == groupPosition)
-                        continue;
-                    expListView.collapseGroup(i);
-                }
-            }
-        });
     }
 
     private void prepareListData() {

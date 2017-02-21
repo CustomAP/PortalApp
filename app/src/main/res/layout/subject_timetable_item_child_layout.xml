@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    android:layout_margin="12dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,6 +23,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_monday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -35,6 +36,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_tuesday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -45,6 +47,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_wednesday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -64,6 +67,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_thursday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -74,6 +78,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_friday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -84,6 +89,7 @@
 
             <Button
                 android:id="@+id/button_subjects_days_saturday"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"

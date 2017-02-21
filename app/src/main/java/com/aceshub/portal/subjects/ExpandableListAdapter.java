@@ -1,37 +1,39 @@
 package com.aceshub.portal.subjects;
 
-
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aceshub.portal.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
+    ExpandableListView expandableListView;
+    //Parent
+    TextView groupTitleTextView;
     private Context _context;
     private List<String> _listDataHeader;
-    private HashMap<String, List<String>> _listDataChild;
-
+    //Child
     private Button[] dayButtons = new Button[6];
-
     private TextView slot1TV;
     private TextView slot2TV;
     private ImageButton addButton;
 
     private int currentSelectedDay = 0;
+    private int notSelectedChildTextColor;
 
     //Dummy data
     private ArrayList<String[]> data = new ArrayList<>();
@@ -41,12 +43,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private String[] thursdayTimes = {"10:00\nto\n11:00"};
     private String[] fridayTimes = {};
     private String[] saturdayTimes = {"10:00\nto\n11:00", "11:00\nto\n12:00"};
+
+    //OnClickListeners of Day Buttons
     private View.OnClickListener onClickListenerMondayButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             setData(0);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[0].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[0].setTextColor(Color.WHITE);
             currentSelectedDay = 0;
@@ -57,7 +61,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         public void onClick(View v) {
             setData(1);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[1].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[1].setTextColor(Color.WHITE);
             currentSelectedDay = 1;
@@ -68,7 +72,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         public void onClick(View v) {
             setData(2);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[2].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[2].setTextColor(Color.WHITE);
             currentSelectedDay = 2;
@@ -79,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         public void onClick(View v) {
             setData(3);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[3].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[3].setTextColor(Color.WHITE);
             currentSelectedDay = 3;
@@ -90,7 +94,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         public void onClick(View v) {
             setData(4);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[4].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[4].setTextColor(Color.WHITE);
             currentSelectedDay = 4;
@@ -101,22 +105,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         public void onClick(View v) {
             setData(5);
             dayButtons[currentSelectedDay].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_normal));
-            dayButtons[currentSelectedDay].setTextColor(Color.BLACK);
+            dayButtons[currentSelectedDay].setTextColor(notSelectedChildTextColor);
             dayButtons[5].setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.subjects_days_selected));
             dayButtons[5].setTextColor(Color.WHITE);
             currentSelectedDay = 5;
         }
     };
 
-    public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listChildData) {
+    //Constructor
+    public ExpandableListAdapter(ExpandableListView expandableListView, Context context, List<String> listDataHeader) {
         this._context = context;
         this._listDataHeader = listDataHeader;
-        this._listDataChild = listChildData;
+        this.expandableListView = expandableListView;
+        notSelectedChildTextColor = ContextCompat.getColor(context, R.color.subject_list_day_default_text_color);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition);
+        return null;
     }
 
     @Override
@@ -190,7 +196,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        //return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
         return 1;
     }
 
@@ -211,18 +216,36 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        final String headerTitle = (String) getGroup(groupPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.subject_timetable_item_layout, null);
+            convertView = infalInflater.inflate(R.layout.subject_timetable_item_layout, parent, false);
         }
 
+        groupTitleTextView = (TextView) convertView.findViewById(R.id.tv_group_expandablelistview_subjectname);
+        groupTitleTextView.setText(headerTitle);
 
-        TextView lblListHeader = (TextView) convertView.findViewById(R.id.tv_group_expandablelistview_subjectname);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+        ImageView infoButton = (ImageView) convertView.findViewById(R.id.image_button_subject_info);
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(_context, headerTitle + " info", Toast.LENGTH_SHORT).show();
+            }
+        });
         return convertView;
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+
+        for (int i = 0; i < _listDataHeader.size(); i++) {
+            if (i == groupPosition)
+                continue;
+            expandableListView.collapseGroup(i);
+        }
     }
 
     @Override
@@ -234,6 +257,4 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
-
 }
