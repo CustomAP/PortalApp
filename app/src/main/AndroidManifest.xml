@@ -48,7 +48,7 @@
 
         <activity
             android:name=".attendence.AttendanceActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" android:parentActivityName=".MainActivity"/>
 
     </application>
 
