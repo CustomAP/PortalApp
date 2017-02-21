@@ -50,6 +50,8 @@
 
     <color name="yellow800">#F9A825</color>
 
+    <color name="status_bar">#02fcfd</color>
+
     <array name="colors">
         <item>@color/red500</item>
         <item>@color/green500</item>
