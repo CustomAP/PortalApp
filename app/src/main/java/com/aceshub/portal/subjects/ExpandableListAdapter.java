@@ -1,6 +1,7 @@
 package com.aceshub.portal.subjects;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -232,6 +233,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(_context, CredsActivity.class);
+                _context.startActivity(intent);
                 Toast.makeText(_context, headerTitle + " info", Toast.LENGTH_SHORT).show();
             }
         });

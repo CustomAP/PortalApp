@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -34,7 +33,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Login"
             android:screenOrientation="portrait"
@@ -45,11 +43,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".attendence.AttendanceActivity"
-            android:theme="@style/AppTheme" android:parentActivityName=".MainActivity"/>
-
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".subjects.CredsActivity"
+            android:label="@string/title_activity_creds"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
