@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar));
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar2));
         }
         //  setContentView(R.layout.activity_main);
         //Initialisation of objects should be done together at starting of activity
