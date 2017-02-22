@@ -22,6 +22,7 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     ExpandableListView expandableListView;
+
     //Parent
     TextView groupTitleTextView;
     private Context _context;
