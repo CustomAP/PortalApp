@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<item
+        android:id="@+id/branches"
+        android:title="Branch"
+        android:titleCondensed="Select Branch">
+        <menu>
+            <group android:id="@+id/branch_group"
+                android:checkableBehavior="single"
+                android:enabled="true">
+                <item
+                    android:id="@+id/radio_button_all"
+                    android:actionViewClass="android.widget.RadioButton"
+                    android:title="All"
+                    android:enabled="true"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/radio_button_entc"
+                    android:actionViewClass="android.widget.RadioButton"
+                    android:title="EnTC"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/radio_button_comp"
+                    android:actionViewClass="android.widget.RadioButton"
+                    android:title="Comp Sci"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/radio_button_elec"
+                    android:actionViewClass="android.widget.RadioButton"
+                    android:title="Electrical"
+                    app:showAsAction="never" />
+
+            </group>
+        </menu>
+    </item>-->
+
+    <item
+        android:id="@+id/menuitem_mark_all_present"
+        android:title="Mark All Present"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuitem_mark_all_absent"
+        android:title="Mark All Absent"
+        app:showAsAction="never" />
+
+</menu>

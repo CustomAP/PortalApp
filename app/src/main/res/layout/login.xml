@@ -1,131 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4689cb"
-    android:fitsSystemWindows="true"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.aceshub.portal.Login">
+    android:fitsSystemWindows="true">
 
-    <ScrollView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:background="@drawable/login_background2"
+        android:contextClickable="false"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="10"
+        tools:context="com.aceshub.portal.Login">
 
-        <RelativeLayout
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="380dp"
-                android:layout_below="@+id/textView3"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="45dp"
-                android:foregroundGravity="center"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-                app:cardMaxElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_below="@+id/textInputLayout2"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/button"
-                        android:elevation="10dp"
-                        android:text="Sign in"
-                        android:textSize="15sp"/>
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
-                        app:srcCompat="@drawable/ic_menu_gallery" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/textInputLayout1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/imageView"
-                        android:layout_marginTop="30dp">
-
-                        <EditText
-                            android:id="@+id/editText1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="40dp"
-                            android:ems="10"
-                            android:fontFamily="sans-serif-light"
-                            android:hint="Username"
-                            android:inputType="textEmailAddress"
-                            android:textSize="20sp" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/textInputLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/textInputLayout1"
-                        android:layout_marginTop="15dp">
-
-                        <EditText
-                            android:id="@+id/editText2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:ems="10"
-                            android:fontFamily="sans-serif-light"
-                            android:hint="Password"
-                            android:inputType="textPassword"
-                            android:textSize="20sp" />
-
-                    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="3"
+            android:background="#00000000"
+            android:gravity="center"
+            android:text="Classroom"
+            android:textSize="45sp" />
 
 
-                </RelativeLayout>
+        <EditText
+            android:id="@+id/Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@android:color/background_light"
+            android:fontFamily="sans-serif-light"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:textColor="#ffffff"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="18sp" />
 
-            </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:fontFamily="sans-serif"
-                android:text="Portal"
-                android:textColor="#ffffff"
-                android:textSize="30sp" />
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@android:color/background_light"
+            android:ems="10"
+            android:fontFamily="sans-serif-light"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="#ffffff"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="18sp" />
 
-        </RelativeLayout>
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="0.3"
+            android:background="@drawable/button_background"
+            android:text="Sign in"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
-    </ScrollView>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:buttonTint="@android:color/background_light"
+            android:text="Remember Me"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@android:color/background_light" />
 
-</android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_toStartOf="@+id/imageview"
+        android:text="Made with "
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_favorite_black_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_toEndOf="@+id/imageview"
+        android:text=" by AcesHub"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp" />
+
+</RelativeLayout>

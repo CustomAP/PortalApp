@@ -1,7 +1,9 @@
 package com.aceshub.portal;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,10 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.aceshub.portal.subjects.Subjects;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     public static FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    DrawerLayout drawerLayout;
+    private boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -39,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = fragmentManager.beginTransaction();   //Initiation
         fragmentTransaction.add(R.id.main_container, new Today());       //Setting Today as first fragment when activity starts
         fragmentTransaction.commit();
+
     }
 
     @Override
@@ -47,7 +57,20 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (exit) {
+                finish(); // finish activity
+            } else {
+                Snackbar snackbar = Snackbar.make(drawerLayout, "Press Back again to Exit", Snackbar.LENGTH_SHORT);
+                snackbar.setText("Press Back again to Exit");
+                snackbar.show();
+                exit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        exit = false;
+                    }
+                }, 2300);
+            }
         }
     }
 
