@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="1dp" />
+    <corners android:radius="3dp" />
 
     <stroke
         android:width="2dp"
         android:color="#3de659" />
 
-    <!--<gradient
-        android:type="sweep"
-        android:startColor="#90f76b"
-        android:centerColor="#48cf39"
-        android:endColor="#70fc75"
-        android:angle="45"
-        android:centerX="0.3"/>-->
-
-    <!--<gradient
-        android:type="linear"
-        android:startColor="#3de659"
-        android:centerX="0.2"
-        android:centerColor="#66d46a"
-        android:endColor="#c3f7c0"/>-->
-
-    <!--<gradient
-        android:angle="90"
-        android:centerColor="#ec56f67b"
-        android:endColor="#23ec34"
-        android:startColor="#00ff44"
-        android:type="linear" />-->
 </shape>

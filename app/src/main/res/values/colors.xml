@@ -58,17 +58,17 @@
 
     <array name="colors">
         <item>@color/red500</item>
-        <item>@color/green500</item>
+        <item>@color/green400</item>
         <item>@color/blue500</item>
-        <item>@color/yellow500</item>
-        <item>@color/brown500</item>
-        <item>@color/pink500</item>
-        <item>@color/purple500</item>
-        <item>@color/deeppurple500</item>
-        <item>@color/indigo500</item>
-        <item>@color/cyan500</item>
-        <item>@color/teal500</item>
-        <item>@color/orange500</item>
+        <item>@color/yellow400</item>
+        <item>@color/brown400</item>
+        <item>@color/pink400</item>
+        <item>@color/purple400</item>
+        <item>@color/deeppurple400</item>
+        <item>@color/indigo400</item>
+        <item>@color/cyan300</item>
+        <item>@color/teal400</item>
+        <item>@color/orange400</item>
     </array>
 
 </resources>

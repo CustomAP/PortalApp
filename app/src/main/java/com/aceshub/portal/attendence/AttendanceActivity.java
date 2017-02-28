@@ -1,6 +1,5 @@
 package com.aceshub.portal.attendence;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,8 +48,6 @@ public class AttendanceActivity extends AppCompatActivity {
         dateTv.setText(new SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()));
 
         saveAttendance = (Button) findViewById(R.id.button_attendance_save);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Fresca-Regular.ttf");
-        saveAttendance.setTypeface(typeface);
 
         recyclerView = (RecyclerView) findViewById(R.id.mislist_recyview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,10 +67,10 @@ public class AttendanceActivity extends AppCompatActivity {
             public void run() {
                 absentNoTv.post(new Runnable() {
                     public void run() {
-                        absentNoTv.setText("A : ");
-                        absentNoTv.append(String.valueOf(studentList.size() - getPresentNumber()));
-                        presentNoTv.setText("P : ");
-                        presentNoTv.append(String.valueOf(getPresentNumber()));
+
+                        absentNoTv.setText(String.valueOf(studentList.size() - getPresentNumber()));
+
+                        presentNoTv.setText(String.valueOf(getPresentNumber()));
                     }
                 });
             }

@@ -9,6 +9,7 @@ public class MisData {
     private static List<MisListItem> currentStudentList = new ArrayList<>();
     private static int absent = 0;
 
+
     public MisData() {
     }
 

@@ -1,6 +1,6 @@
 package com.aceshub.portal.attendence;
 
-import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -59,8 +59,6 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
             super(itemView);
 
             misTv = (TextView) itemView.findViewById(R.id.attendance_mis_tv);
-            Typeface typeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "Fresca-Regular.ttf");
-            misTv.setTypeface(typeface);
 
             nameTv = (TextView) itemView.findViewById(R.id.attendance_name_tv);
 
@@ -86,7 +84,7 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
         public void setPresent(View v) {
             card.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.mis_text_present, null));
             paText.setText("P");
-            paText.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green500, null));
+            paText.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.green_circle_background));
             misTv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green500, null));
             nameTv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.green300, null));
             MisData.getData().get(getAdapterPosition()).setPresent(true);
@@ -96,7 +94,7 @@ public class MisAdapter extends RecyclerView.Adapter<MisAdapter.DataHolder> {
         public void setAbsent(View v) {
             card.setBackground(ResourcesCompat.getDrawable(v.getResources(), R.drawable.mis_text_absent, null));
             paText.setText("A");
-            paText.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red500, null));
+            paText.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.red_circle_background));
             misTv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red500, null));
             nameTv.setTextColor(ResourcesCompat.getColor(v.getResources(), R.color.red300, null));
             MisData.getData().get(getAdapterPosition()).setPresent(false);
