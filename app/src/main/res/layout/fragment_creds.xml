@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aceshub.portal.subjects.ui.CredsActivity$PlaceholderFragment">
-
+    tools:context="com.aceshub.portal.subjects.CredsActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/student_rec_view"
