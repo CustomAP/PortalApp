@@ -1,42 +1,37 @@
 package com.aceshub.portal.server_connection;
+
 import android.content.Context;
 import android.util.Log;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
+import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import com.androidquery.AQuery;
-
 
 /**
  * Created by amarpreetsingha on 1/3/17.
  */
 
 public class FacultySubjects{
-    AQuery aQuery;
-    String falsubs = "http://10.10.1.6:9999/atten/index.php/welcome/first";
-    String subsstudents = "http://10.10.1.6:9999/atten/index.php/welcome/third";
-    String id;
-    int ret = 0;
-    FacultySubjectMappingView facultySubjectMappingView;
-    int FID;
-    String SubjectCode;
-    String SubjectTitle;
-    int DivisionID;
-    String PicklistValueName;
-    String BranchName;
-    String Abbreviation;
-    int FacultySubjectMappingID;
-    String SubjectType;
-    DatabaseHelper databaseHelper;
-    int SID;
-    String StudentRegCode, NameofStudent;
+    private final String falsubs = "http://10.10.1.6:9999/atten/index.php/welcome/first";
+    private final String subsstudents = "http://10.10.1.6:9999/atten/index.php/welcome/third";
+    private AQuery aQuery;
+    private String id;
+    private int ret = 0;
+    private FacultySubjectMappingView facultySubjectMappingView;
+    private int FID;
+    private String SubjectCode, SubjectType, SubjectTitle, PicklistValueName, BranchName, Abbreviation;
+    private int DivisionID, FacultySubjectMappingID;
+    private DatabaseHelper databaseHelper;
+    private int SID;
+    private String StudentRegCode, NameofStudent;
 
     public  FacultySubjects(String id, Context context) {
         facultySubjectMappingView = new FacultySubjectMappingView();
@@ -99,7 +94,7 @@ public class FacultySubjects{
     }
 
     public void getFacultySubjectsData() {
-        ArrayList<FacultySubjectMappingView> arrayList = databaseHelper.getFacultySubjects();
+        ArrayList<FacultySubjectMappingView> arrayList = databaseHelper.getFacultySubjectMappingView();
         for (FacultySubjectMappingView facultySubjectMappingView : arrayList) {
             String subcode = facultySubjectMappingView.getSubCode();
             int divid = facultySubjectMappingView.getDivID();
