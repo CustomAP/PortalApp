@@ -9,5 +9,4 @@ public class StudentSubjectAttendance {
     String subCode, subTitle, subType, branchname;
 
     //Pending Work by Amarpreet.
-
 }

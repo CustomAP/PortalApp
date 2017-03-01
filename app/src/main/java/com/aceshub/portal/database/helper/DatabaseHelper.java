@@ -11,10 +11,6 @@ import com.aceshub.portal.database.model.FacultySubjectMappingView;
 
 import java.util.ArrayList;
 
-/**
- * Created by komal on 20/2/17.
- */
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DBName = "attendance.db";
     private static final String facultySubMapViewTable = "FacultySubjectMappingView";
