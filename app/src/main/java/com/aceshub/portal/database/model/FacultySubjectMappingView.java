@@ -15,12 +15,10 @@ public class FacultySubjectMappingView {
         this.sync = sync;
     }
 
-    // getter
     public int getFid() {
         return Fid;
     }
 
-    //Setter
     public void setFid(int fid) {
         this.Fid = fid;
     }
