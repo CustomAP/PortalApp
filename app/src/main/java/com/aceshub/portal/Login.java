@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
 import com.aceshub.portal.server_connection.FacultySubjects;
+import com.aceshub.portal.server_connection.SubjectsEnrolledStudents;
 
 
 public class Login extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class Login extends AppCompatActivity {
     TextView tv1, tv2;
     EditText et1, et2;
     FacultySubjects facultySubjects;
+    SubjectsEnrolledStudents subjectsEnrolledStudents;
     SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +50,14 @@ public class Login extends AppCompatActivity {
         sqLiteDatabase = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
 
         facultySubjects =  new FacultySubjects("410902014", getApplicationContext());
+        subjectsEnrolledStudents = new SubjectsEnrolledStudents(getApplicationContext());
 
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(facultySubjects.setFacultySubjects() != 1) {
-                    facultySubjects.getFacultySubjectsData();
+                    subjectsEnrolledStudents.getSubjectsEnrolledStudents();
                     Intent i = new Intent(Login.this, MainActivity.class);
                     startActivity(i);
                     finish();

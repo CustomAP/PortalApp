@@ -5,39 +5,44 @@ package com.aceshub.portal.database.model;
  */
 
 public class StudentSubjectMappingView {
-    int Sid;
-    String facultySubMapID,stRegcode,stName,subCode,subTitle,subType,divID,branch_name;
-    boolean sync;
+    int FacultySubjectMappingID;
+    int DivisionID;
+    int Sync;
+    String stregcode;
+    String abbreviation;
+    String subCode;
+    String subTitle;
+    String subType;
+    String branchname;
+    String nameofstudent;
+    int SID;
 
-    public StudentSubjectMappingView(int Sid, String subCode, String subTitle,String stRegcode,String stName, String subType, String divID, String facultySubMapID, String branch_name, boolean sync) {
-        this.Sid = Sid;
-        this.subCode=subCode;
-        this.subTitle=subTitle;
-        this.subType=subType;
-        this.divID=divID;
-        this.facultySubMapID=facultySubMapID;
-        this.branch_name=branch_name;
-        this.sync=sync;
-        this.stRegcode=stRegcode;
-        this.stName=stName;
+    public void setNameofstudent(String nameofstudent) {
+        this.nameofstudent = nameofstudent;
     }
 
-    //Setter
-
-    public void setSid(int sid) {
-        Sid = sid;
+    public void setSID(int SID) {
+        this.SID = SID;
     }
 
-    public void setFacultySubMapID(String facultySubMapID) {
-        this.facultySubMapID = facultySubMapID;
+    public void setFacultySubjectMappingID(int facultySubjectMappingID) {
+        FacultySubjectMappingID = facultySubjectMappingID;
     }
 
-    public void setStRegcode(String stRegcode) {
-        this.stRegcode = stRegcode;
+    public void setDivisionID(int divisionID) {
+        DivisionID = divisionID;
     }
 
-    public void setStName(String stName) {
-        this.stName = stName;
+    public void setSync(int sync) {
+        Sync = sync;
+    }
+
+    public void setStregcode(String stregcode) {
+        this.stregcode = stregcode;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public void setSubCode(String subCode) {
@@ -52,36 +57,33 @@ public class StudentSubjectMappingView {
         this.subType = subType;
     }
 
-    public void setDivID(String divID) {
-        this.divID = divID;
-    }
-
-    public void setBranch_name(String branch_name) {
-        this.branch_name = branch_name;
-    }
-
-    public void setSync(boolean sync) {
-        this.sync = sync;
+    public void setBranchname(String branchname) {
+        this.branchname = branchname;
     }
 
 
-    // getter
-
-
-    public int getSid() {
-        return Sid;
+    public int getSID() {
+        return SID;
     }
 
-    public String getFacultySubMapID() {
-        return facultySubMapID;
+    public int getFacultySubjectMappingID() {
+        return FacultySubjectMappingID;
     }
 
-    public String getStRegcode() {
-        return stRegcode;
+    public int getDivisionID() {
+        return DivisionID;
     }
 
-    public String getStName() {
-        return stName;
+    public int getSync() {
+        return Sync;
+    }
+
+    public String getStregcode() {
+        return stregcode;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
     public String getSubCode() {
@@ -96,15 +98,11 @@ public class StudentSubjectMappingView {
         return subType;
     }
 
-    public String getDivID() {
-        return divID;
+    public String getBranchname() {
+        return branchname;
     }
 
-    public String getBranch_name() {
-        return branch_name;
-    }
-
-    public boolean isSync() {
-        return sync;
+    public String getNameofstudent() {
+        return nameofstudent;
     }
 }
