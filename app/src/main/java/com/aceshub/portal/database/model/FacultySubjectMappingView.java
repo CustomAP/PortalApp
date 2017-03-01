@@ -5,42 +5,34 @@ package com.aceshub.portal.database.model;
  */
 
 public class FacultySubjectMappingView {
-    int Fid;
-    String subCode,subTitle,subType,divID,facultySubMapID,branch;
-    boolean sync;
+    int Fid, divID, sync, facultySubMapID;
+    String subCode,subTitle,subType,branch, abbreviation;
 
-    public FacultySubjectMappingView(int Fid, String subCode,String subTitle,String subType, String divID,String facultySubMapID,String branch,boolean sync) {
-        this.Fid = Fid;
-        this.subCode=subCode;
-        this.subTitle=subTitle;
-        this.subType=subType;
-        this.divID=divID;
-        this.facultySubMapID=facultySubMapID;
-        this.branch=branch;
+    public FacultySubjectMappingView() {
     }
 
     //Setter
     public void setFid(int fid) {
-        Fid = fid;
+        this.Fid = fid;
     }
 
     public void setSubCode(String subCode) {
-        this.subCode = subCode;
+        this.subCode=subCode;
     }
 
     public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+        this.subTitle=subTitle;
     }
 
     public void setSubType(String subType) {
-        this.subType = subType;
+        this.subType=subType;
     }
 
-    public void setDivID(String divID) {
-        this.divID = divID;
+    public void setDivID(int divID) {
+        this.divID=divID;
     }
 
-    public void setFacultySubMapID(String facultySubMapID) {
+    public void setFacultySubMapID(int facultySubMapID) {
         this.facultySubMapID = facultySubMapID;
     }
 
@@ -48,7 +40,11 @@ public class FacultySubjectMappingView {
         this.branch = branch;
     }
 
-    public void setSync(boolean sync) {
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public void setSync(int sync) {
         this.sync = sync;
     }
 
@@ -72,11 +68,11 @@ public class FacultySubjectMappingView {
         return subType;
     }
 
-    public String getDivID() {
+    public int getDivID() {
         return divID;
     }
 
-    public String getFacultySubMapID() {
+    public int getFacultySubMapID() {
         return facultySubMapID;
     }
 
@@ -84,7 +80,11 @@ public class FacultySubjectMappingView {
         return branch;
     }
 
-    public boolean isSync() {
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public int isSync() {
         return sync;
     }
 

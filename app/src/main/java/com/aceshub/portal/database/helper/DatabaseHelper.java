@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.aceshub.portal.database.model.FacultySubjectMappingView;
+
+import java.util.ArrayList;
+
 /**
  * Created by komal on 20/2/17.
  */
@@ -25,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String column_divID = "DivisionID";
     private static final String column_subType = "SubjectType";
     private static final String column_facultySubMapID = "FacultySubjectMappingID";
-    private static final String column_branch = "Branch";
     private static final String column_branchName = "BranchName";
     private static final String column_SID = "SID";
     private static final String column_stRegCode = "StudentRegCode";
@@ -42,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String column_start = "StartTime";
     private static final String column_end = "EndTime";
     private static final String column_flag = "Flag";
+    private static final String column_abbreviation = "Abbreviation";
 
     private static final int DBVersion = 1;
 
@@ -56,9 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_subCode + " VARCHAR(16), "
                 + column_subTitle + " VARCHAR(32), "
                 + column_subType + " VARCHAR(16), "
-                + column_divID + " VARCHAR(16), "
+                + column_divID + " INT, "
                 + column_facultySubMapID + " VARCHAR(16), "
-                + column_branch + " VARCHAR(16), "
+                + column_branchName + " VARCHAR(16), "
+                + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
                 + "PRIMARY KEY (" + column_FID + "));";
 
@@ -71,8 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_subCode + " VARCHAR(16), "
                 + column_subTitle + " VARCHAR(32), "
                 + column_subType + " VARCHAR(16), "
-                + column_divID + " VARCHAR(16), "
+                + column_divID + " INT, "
                 + column_branchName + " VARCHAR(32), "
+                + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
                 + "PRIMARY KEY (" + column_SID + "))";
 
@@ -143,5 +149,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void InsertFacultySubjects(FacultySubjectMappingView facultySubjectMappingView) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(column_FID, facultySubjectMappingView.getFid());
+        values.put(column_subCode, facultySubjectMappingView.getSubCode());
+        values.put(column_subTitle, facultySubjectMappingView.getSubTitle());
+        values.put(column_subType, facultySubjectMappingView.getSubType());
+        values.put(column_divID, facultySubjectMappingView.getDivID());
+        values.put(column_facultySubMapID, facultySubjectMappingView.getFacultySubMapID());
+        values.put(column_branchName, facultySubjectMappingView.getBranch());
+        values.put(column_abbreviation, facultySubjectMappingView.getAbbreviation());
+        values.put(column_sync, facultySubjectMappingView.isSync());
+
+        sqLiteDatabase.insert(facultySubMapViewTable, null, values);
+    }
+
+   /* public ArrayList<FacultySubjectMappingView> getFacultySubjects() {
+        List<FacultySubjectMappingView> todos = new ArrayList<FacultySubjectMappingView>();
+        String selectQuery = "SELECT  FROM " + facultySubMapViewTable;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Todo td = new Todo();
+                td.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
+                td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+                // adding to todo list
+                todos.add(td);
+            } while (c.moveToNext());
+        }
+
+        return todos;
+    }*/
 }
 
