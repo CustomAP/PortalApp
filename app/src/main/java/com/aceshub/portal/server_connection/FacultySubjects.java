@@ -7,6 +7,8 @@ import com.aceshub.portal.database.model.FacultySubjectMappingView;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.androidquery.AQuery;
@@ -18,7 +20,8 @@ import com.androidquery.AQuery;
 
 public class FacultySubjects{
     AQuery aQuery;
-    String url = "http://10.10.1.6:9999/atten/index.php/welcome/first";
+    String falsubs = "http://10.10.1.6:9999/atten/index.php/welcome/first";
+    String subsstudents = "http://10.10.1.6:9999/atten/index.php/welcome/third";
     String id;
     int ret = 0;
     FacultySubjectMappingView facultySubjectMappingView;
@@ -32,6 +35,8 @@ public class FacultySubjects{
     int FacultySubjectMappingID;
     String SubjectType;
     DatabaseHelper databaseHelper;
+    int SID;
+    String StudentRegCode, NameofStudent;
 
     public  FacultySubjects(String id, Context context) {
         facultySubjectMappingView = new FacultySubjectMappingView();
@@ -40,10 +45,10 @@ public class FacultySubjects{
         this.id = id;
     }
 
-    public int run() {
+    public int setFacultySubjects() {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        aQuery.ajax(url, params, JSONObject.class,new AjaxCallback<JSONObject>() {
+        aQuery.ajax(falsubs, params, JSONObject.class,new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 if (json != null) {
@@ -63,15 +68,8 @@ public class FacultySubjects{
                             BranchName = obj.getString("BranchName");
                             Abbreviation = obj.getString("Abbreviation");
                             FacultySubjectMappingID = obj.getInt("FacultySubjectMappingID");
-                            /*Log.d("FID", ""+FID);
-                            Log.d("SubjectCode", ""+SubjectCode);
-                            Log.d("SubjectTitle", ""+SubjectTitle);
-                            Log.d("DivisionID", ""+DivisionID);
-                            Log.d("PickListValueName", ""+PicklistValueName);
-                            Log.d("BranchName", ""+BranchName);
-                            Log.d("FacultySubjectMappingID", ""+FacultySubjectMappingID);
-*/
 
+                            //Setter methods of FacultySubjectsMappingView
                             facultySubjectMappingView.setBranch(BranchName);
                             facultySubjectMappingView.setAbbreviation(Abbreviation);
                             facultySubjectMappingView.setDivID(DivisionID);
@@ -83,6 +81,7 @@ public class FacultySubjects{
                             facultySubjectMappingView.setSync(0);
 
 
+                            //Inserting row in database
                             databaseHelper.InsertFacultySubjects(facultySubjectMappingView);
 
                             ret = 0;
@@ -97,5 +96,49 @@ public class FacultySubjects{
         });
 
         return ret;
+    }
+
+    public void getFacultySubjectsData() {
+        ArrayList<FacultySubjectMappingView> arrayList = databaseHelper.getFacultySubjects();
+        for (FacultySubjectMappingView facultySubjectMappingView : arrayList) {
+            String subcode = facultySubjectMappingView.getSubCode();
+            int divid = facultySubjectMappingView.getDivID();
+            int fsmid = facultySubjectMappingView.getFacultySubMapID();
+            Log.d("SubjectCode", ""+facultySubjectMappingView.getSubCode());
+            Log.d("DivisionID", ""+facultySubjectMappingView.getDivID());
+            Log.d("FSMID", ""+facultySubjectMappingView.getFacultySubMapID());
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("subcode", subcode);
+            params.put("divid", divid);
+            params.put("fsmid", fsmid);
+            aQuery.ajax(subsstudents, params, JSONObject.class,new AjaxCallback<JSONObject>() {
+                @Override
+                public void callback(String url, JSONObject json, AjaxStatus status) {
+                    if (json != null) {
+                        try {
+                            int length = json.getInt("length");
+
+                            String in = json.getString("ResultSet");
+
+                            JSONObject reader = new JSONObject(in);
+                            for (int i = 0; i < length; i++) {
+                                JSONObject obj = reader.getJSONObject(String.valueOf(i));
+                                SID = obj.getInt("SID");
+                                StudentRegCode = obj.getString("StudentRegCode");
+                                NameofStudent = obj.getString("NameofStudent");
+
+                                Log.d("SID", ""+SID);
+                                Log.d("StudentRegCode", ""+StudentRegCode);
+                                Log.d("NameofStudent", ""+NameofStudent);
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{}
+                }
+            });
+        }
     }
 }

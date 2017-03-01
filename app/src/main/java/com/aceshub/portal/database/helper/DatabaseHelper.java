@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_subTitle + " VARCHAR(32), "
                 + column_subType + " VARCHAR(16), "
                 + column_divID + " INT, "
-                + column_facultySubMapID + " VARCHAR(16), "
+                + column_facultySubMapID + " INT, "
                 + column_branchName + " VARCHAR(16), "
                 + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createStudentSubMap = "CREATE TABLE " + studentSubMapTable +
                 " (" + column_SID + " INT, "
-                + column_facultySubMapID + " VARCHAR(16), "
+                + column_facultySubMapID + " INT, "
                 + column_stRegCode + " VARCHAR(16), "
                 + column_stName + " VARCHAR(50), "
                 + column_subCode + " VARCHAR(16), "
@@ -165,29 +165,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(facultySubMapViewTable, null, values);
     }
 
-   /* public ArrayList<FacultySubjectMappingView> getFacultySubjects() {
-        List<FacultySubjectMappingView> todos = new ArrayList<FacultySubjectMappingView>();
-        String selectQuery = "SELECT  FROM " + facultySubMapViewTable;
+    public ArrayList<FacultySubjectMappingView> getFacultySubjects() {
+        ArrayList<FacultySubjectMappingView> arrayList = new ArrayList<FacultySubjectMappingView>();
+        String selectQuery = "SELECT SubjectCode, DivisionID, FacultySubjectMappingID FROM " + facultySubMapViewTable;
 
-        Log.e(LOG, selectQuery);
+        Log.e("LOG", selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
+        // looping through all rows and adding to arraylist
         if (c.moveToFirst()) {
             do {
-                Todo td = new Todo();
-                td.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-                td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
-                td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+                FacultySubjectMappingView facultySubjectMappingView = new FacultySubjectMappingView();
+                facultySubjectMappingView.setSubCode(c.getString((c.getColumnIndex(column_subCode))));
+                facultySubjectMappingView.setDivID(c.getInt((c.getColumnIndex(column_divID))));
+                facultySubjectMappingView.setFacultySubMapID((c.getInt(c.getColumnIndex(column_facultySubMapID))));
 
-                // adding to todo list
-                todos.add(td);
+                // adding to facultysubjectmappingview
+                arrayList.add(facultySubjectMappingView);
             } while (c.moveToNext());
         }
 
-        return todos;
-    }*/
+        return arrayList;
+    }
 }
 

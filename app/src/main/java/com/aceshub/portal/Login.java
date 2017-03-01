@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
+import com.aceshub.portal.database.model.FacultySubjectMappingView;
 import com.aceshub.portal.server_connection.FacultySubjects;
 
 
@@ -52,7 +53,8 @@ public class Login extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(facultySubjects.run() != 1) {
+                if(facultySubjects.setFacultySubjects() != 1) {
+                    facultySubjects.getFacultySubjectsData();
                     Intent i = new Intent(Login.this, MainActivity.class);
                     startActivity(i);
                     finish();
