@@ -10,17 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.aceshub.portal.R;
+import com.aceshub.portal.database.helper.DatabaseHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Subjects extends Fragment {
 
-    ExpandableListAdapter expandableListAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    private ExpandableListAdapter expandableListAdapter;
+    private ExpandableListView expListView;
 
     public Subjects() {
     }
@@ -37,23 +34,12 @@ public class Subjects extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         expListView = (ExpandableListView) view.findViewById(R.id.subjects_expandable_layout);
-        prepareListData();
-        expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), listDataHeader);
+        expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), getSubjectsList());
         expListView.setAdapter(expandableListAdapter);
     }
 
-    private void prepareListData() {
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
-
-        // Adding child data
-        listDataHeader.add("Subject1");
-        listDataHeader.add("Subject2");
-        listDataHeader.add("Subject3");
-
-        // Header, Child data
-        listDataChild.put(listDataHeader.get(0), null);
-        listDataChild.put(listDataHeader.get(1), null);
-        listDataChild.put(listDataHeader.get(2), null);
+    private List<String> getSubjectsList() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        return databaseHelper.subjectsList();
     }
 }
