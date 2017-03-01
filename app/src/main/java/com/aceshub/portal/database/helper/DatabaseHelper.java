@@ -2,18 +2,11 @@ package com.aceshub.portal.database.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
-
-import java.util.ArrayList;
-
-/**
- * Created by komal on 20/2/17.
- */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DBName = "attendance.db";
