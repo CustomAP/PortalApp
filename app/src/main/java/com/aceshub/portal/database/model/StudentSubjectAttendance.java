@@ -16,42 +16,37 @@ public class StudentSubjectAttendance {
         this.status=status;
     }
 
-    //Setter
-
-
-    public void setSid(int sid) {
-        Sid = sid;
-    }
-
-    public void setSSid(int SSid) {
-        this.SSid = SSid;
-    }
-
-    public void setSync(boolean sync) {
-        this.sync = sync;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-
     //Getter
-
-
     public int getSid() {
         return Sid;
+    }
+
+    //Setter
+    public void setSid(int sid) {
+        Sid = sid;
     }
 
     public int getSSid() {
         return SSid;
     }
 
+    public void setSSid(int SSid) {
+        this.SSid = SSid;
+    }
+
     public boolean isSync() {
         return sync;
     }
 
+    public void setSync(boolean sync) {
+        this.sync = sync;
+    }
+
     public boolean isStatus() {
         return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

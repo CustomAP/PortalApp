@@ -5,6 +5,7 @@ package com.aceshub.portal.database.model;
  */
 
 public class FacultySubjectMappingView {
+
     private int Fid, divID, sync, facultySubMapID;
     private String subCode, subTitle, subType, branch, abbreviation;
 
@@ -82,6 +83,4 @@ public class FacultySubjectMappingView {
     public int isSync() {
         return sync;
     }
-
-
 }
