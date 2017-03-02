@@ -8,13 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
+import com.aceshub.portal.database.model.StudentSubjectMappingView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DBName = "attendance.db";
-    private static final String facultySubMapViewTable = "FacultySubjectMappingView";
-    private static final String studentSubMapTable = "StudentSubjectMappingView";
+    private static final String facultySubMapViewTable = "FacultySubjectMapping";
+    private static final String studentSubMapTable = "StudentSubjectMapping";
     private static final String subAttendanceInfoTable = "SubjectAttendanceInfo";
     private static final String studentSubAttendanceTable = "StudentSubjectAttendance";
     private static final String subAttendanceInfoFlagTable = "SubjectAttendanceInfoFlag";
@@ -145,7 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void InsertFacultySubjects(FacultySubjectMappingView facultySubjectMappingView) {
+    public void InsertFacultySubjectMappingView(FacultySubjectMappingView facultySubjectMappingView) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(column_FID, facultySubjectMappingView.getFid());
@@ -161,9 +163,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(facultySubMapViewTable, null, values);
     }
 
-    public ArrayList<FacultySubjectMappingView> getFacultySubjects() {
-        ArrayList<FacultySubjectMappingView> arrayList = new ArrayList<FacultySubjectMappingView>();
-        String selectQuery = "SELECT SubjectCode, DivisionID, FacultySubjectMappingID FROM " + facultySubMapViewTable;
+    public ArrayList<FacultySubjectMappingView> getFacultySubjectMappingView() {
+        ArrayList<FacultySubjectMappingView> facultySubjectMappingViewList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + facultySubMapViewTable;
 
         Log.e("LOG", selectQuery);
 
@@ -174,16 +176,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 FacultySubjectMappingView facultySubjectMappingView = new FacultySubjectMappingView();
+                facultySubjectMappingView.setFid(c.getInt(c.getColumnIndex(column_FID)));
                 facultySubjectMappingView.setSubCode(c.getString((c.getColumnIndex(column_subCode))));
+                facultySubjectMappingView.setSubTitle(c.getString(c.getColumnIndex(column_subTitle)));
+                facultySubjectMappingView.setSubType(c.getString(c.getColumnIndex(column_subType)));
                 facultySubjectMappingView.setDivID(c.getInt((c.getColumnIndex(column_divID))));
                 facultySubjectMappingView.setFacultySubMapID((c.getInt(c.getColumnIndex(column_facultySubMapID))));
-
+                facultySubjectMappingView.setBranch(c.getString(c.getColumnIndex(column_branchName)));
+                facultySubjectMappingView.setAbbreviation(c.getString(c.getColumnIndex(column_abbreviation)));
+                facultySubjectMappingView.setSync(c.getInt(c.getColumnIndex(column_sync)));
                 // adding to facultysubjectmappingview
-                arrayList.add(facultySubjectMappingView);
+                facultySubjectMappingViewList.add(facultySubjectMappingView);
             } while (c.moveToNext());
         }
 
-        return arrayList;
+        c.close();
+
+        return facultySubjectMappingViewList;
+    }
+
+    public List<String> subjectsList() {
+        List<String> subjectList = new ArrayList<>();
+        String selectQuery = "SELECT " + column_subTitle + " FROM " + facultySubMapViewTable;
+
+        Log.e("LOG", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to arraylist
+        if (c.moveToFirst()) {
+            do {
+                subjectList.add(c.getString(c.getColumnIndex(column_subTitle)));
+            } while (c.moveToNext());
+        }
+
+        c.close();
+
+        return subjectList;
+    }
+
+    public void InsertStudentSubjectMappingView(StudentSubjectMappingView studentSubjectMappingView) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(column_SID, studentSubjectMappingView.getSID());
+        values.put(column_stRegCode, studentSubjectMappingView.getStregcode());
+        values.put(column_stName, studentSubjectMappingView.getNameofstudent());
+        values.put(column_subCode, studentSubjectMappingView.getSubCode());
+        values.put(column_subTitle, studentSubjectMappingView.getSubTitle());
+        values.put(column_subType, studentSubjectMappingView.getSubType());
+        values.put(column_divID, studentSubjectMappingView.getDivisionID());
+        values.put(column_facultySubMapID, studentSubjectMappingView.getFacultySubjectMappingID());
+        values.put(column_branchName, studentSubjectMappingView.getBranchname());
+        values.put(column_abbreviation, studentSubjectMappingView.getAbbreviation());
+        values.put(column_sync, studentSubjectMappingView.getSync());
+
+        sqLiteDatabase.insert(studentSubMapTable, null, values);
     }
 }
 

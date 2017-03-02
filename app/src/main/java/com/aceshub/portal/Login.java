@@ -14,9 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
-import com.aceshub.portal.database.model.FacultySubjectMappingView;
-import com.aceshub.portal.server_connection.FacultySubjects;
-import com.aceshub.portal.server_connection.SubjectsEnrolledStudents;
+import com.aceshub.portal.server_connection.FacultySubjectMapping;
+import com.aceshub.portal.server_connection.StudentSubjectMapping;
 
 
 public class Login extends AppCompatActivity {
@@ -24,8 +23,8 @@ public class Login extends AppCompatActivity {
     Button b1;
     TextView tv1, tv2;
     EditText et1, et2;
-    FacultySubjects facultySubjects;
-    SubjectsEnrolledStudents subjectsEnrolledStudents;
+    FacultySubjectMapping facultySubjectMapping;
+    StudentSubjectMapping studentSubjectMapping;
     SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +48,20 @@ public class Login extends AppCompatActivity {
         //creating database
         sqLiteDatabase = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
 
-        facultySubjects =  new FacultySubjects("410902014", getApplicationContext());
-        subjectsEnrolledStudents = new SubjectsEnrolledStudents(getApplicationContext());
+        facultySubjectMapping =  new FacultySubjectMapping("410902014", getApplicationContext());
+        studentSubjectMapping = new StudentSubjectMapping(getApplicationContext());
 
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(facultySubjects.setFacultySubjects() != 1) {
-                    subjectsEnrolledStudents.getSubjectsEnrolledStudents();
-                    Intent i = new Intent(Login.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }else
-                    Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_SHORT).show();
 
-            }
+                studentSubjectMapping.run();
+                        /*Intent i = new Intent(Login.this, MainActivity.class);
+                        startActivity(i);
+                        finish();*/
+
+                }
         });
     }
 }
