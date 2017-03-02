@@ -11,12 +11,7 @@ public class Timetable {
     String subCode,subTitle,day;
     Time start,end;
 
-    public Timetable( String subCode, String subTitle, String day, Time start,Time end) {
-        this.start=start;
-        this.end=end;
-        this.subCode=subCode;
-        this.subTitle=subTitle;
-        this.day=day;
+    public Timetable() {
     }
 
     //Setter

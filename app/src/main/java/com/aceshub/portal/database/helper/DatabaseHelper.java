@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
 import com.aceshub.portal.database.model.StudentSubjectMappingView;
+import com.aceshub.portal.database.model.Timetable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_day + " VARCHAR(8), "
                 + column_start + " TIME, "
                 + column_end + " TIME, "
-                + "PRIMARY KEY (" + column_subCode + "));";
+                + "PRIMARY KEY (" + column_subCode + ", "+ column_start+", "+ column_end+", "+ column_day+"));";
         try {
             db.execSQL(createFacultySubMapView);
             db.execSQL(createStudentSubMap);
@@ -237,6 +238,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(studentSubMapTable, null, values);
     }
 
+    public void InsertTimeTable(Timetable timetable) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(column_subCode, timetable.getSubCode());
+        values.put(column_subTitle, timetable.getSubTitle());
+        values.put(column_day, timetable.getDay());
+        values.put(column_start, String.valueOf(timetable.getStart()));
+        values.put(column_end, String.valueOf(timetable.getEnd()));
+
+        sqLiteDatabase.insert(timetableTable, null, values);
+    }
 
 }
 
