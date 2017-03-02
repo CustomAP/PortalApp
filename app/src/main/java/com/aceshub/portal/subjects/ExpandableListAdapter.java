@@ -1,5 +1,6 @@
 package com.aceshub.portal.subjects;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,29 +17,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceshub.portal.R;
+import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
+import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class ExpandableListAdapter extends BaseExpandableListAdapter implements TimePickerDialog.OnTimeSetListener {
 
     ExpandableListView expandableListView;
 
     //Parent
     TextView groupTitleTextView;
-    //Data
-    Map<String, String> map = new HashMap<>();
-    private Context _context;
-    private List<String> _listDataHeader;
+    private Context context;
+    private List<String> subjectsList;
     //Child
     private Button[] dayButtons = new Button[6];
     private TextView slot1TV;
     private TextView slot2TV;
     private ImageButton addButton;
+
     private int currentSelectedDay = 0;
     private int notSelectedChildTextColor;
+
     //Dummy data
     private ArrayList<String[]> data = new ArrayList<>();
     private String[] mondayTimes = {"10:00\nto\n11:00"};
@@ -115,11 +117,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             currentSelectedDay = 5;
         }
     };
+    private View.OnClickListener onClickListenerAddButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Calendar now = Calendar.getInstance();
+            TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
+                    ExpandableListAdapter.this,
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),
+                    false);
+            timePickerDialog.show(((Activity) context).getFragmentManager(), "TimePicker");
+        }
+    };
+
 
     //Constructor
-    public ExpandableListAdapter(ExpandableListView expandableListView, Context context, List<String> listDataHeader) {
-        this._context = context;
-        this._listDataHeader = listDataHeader;
+    public ExpandableListAdapter(ExpandableListView expandableListView, Context context,
+                                 List<String> subjectsList, List<String> subjectCodesList) {
+        this.context = context;
+        this.subjectsList = subjectsList;
         this.expandableListView = expandableListView;
         notSelectedChildTextColor = ContextCompat.getColor(context, R.color.subject_list_day_default_text_color);
     }
@@ -139,7 +155,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
 
-            LayoutInflater infalInflater = (LayoutInflater) this._context
+            LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.subject_timetable_item_child_layout, null);
         }
@@ -161,6 +177,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         slot1TV = (TextView) convertView.findViewById(R.id.tv_subject_timing_slot1);
         slot2TV = (TextView) convertView.findViewById(R.id.tv_subject_timing_slot2);
         addButton = (ImageButton) convertView.findViewById(R.id.imgbut_subject_timing_add);
+
+        addButton.setOnClickListener(onClickListenerAddButton);
 
         //dummy data
         data.add(mondayTimes);
@@ -205,12 +223,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this._listDataHeader.get(groupPosition);
+        return this.subjectsList.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this._listDataHeader.size();
+        return this.subjectsList.size();
     }
 
     @Override
@@ -223,7 +241,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         final String headerTitle = (String) getGroup(groupPosition);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.subject_timetable_item_layout, parent, false);
         }
 
@@ -235,9 +253,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(_context, CredsActivity.class);
-                _context.startActivity(intent);
-                Toast.makeText(_context, headerTitle + " info", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, CredsActivity.class);
+                context.startActivity(intent);
+                Toast.makeText(context, headerTitle + " info", Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
@@ -247,7 +265,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public void onGroupExpanded(int groupPosition) {
         super.onGroupExpanded(groupPosition);
 
-        for (int i = 0; i < _listDataHeader.size(); i++) {
+        for (int i = 0; i < subjectsList.size(); i++) {
             if (i == groupPosition)
                 continue;
             expandableListView.collapseGroup(i);
@@ -262,5 +280,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
+        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+        String minuteString = minute < 10 ? "0" + minute : "" + minute;
+        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
+        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
+        String time = "You picked the following time: From - " + hourString + "h" + minuteString + " To - " + hourStringEnd + "h" + minuteStringEnd;
+        Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
     }
 }
