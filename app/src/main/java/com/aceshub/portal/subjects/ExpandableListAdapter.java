@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.aceshub.portal.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -26,6 +28,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     //Parent
     TextView groupTitleTextView;
+    //Data
+    Map<String, String> map = new HashMap<>();
     private Context _context;
     private List<String> _listDataHeader;
     //Child
@@ -33,10 +37,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private TextView slot1TV;
     private TextView slot2TV;
     private ImageButton addButton;
-
     private int currentSelectedDay = 0;
     private int notSelectedChildTextColor;
-
     //Dummy data
     private ArrayList<String[]> data = new ArrayList<>();
     private String[] mondayTimes = {"10:00\nto\n11:00"};
