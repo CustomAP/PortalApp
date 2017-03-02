@@ -16,6 +16,7 @@ import java.util.List;
 
 public class Subjects extends Fragment {
 
+    DatabaseHelper databaseHelper;
     private ExpandableListAdapter expandableListAdapter;
     private ExpandableListView expListView;
 
@@ -33,13 +34,19 @@ public class Subjects extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        databaseHelper = new DatabaseHelper(getContext());
+
         expListView = (ExpandableListView) view.findViewById(R.id.subjects_expandable_layout);
         expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), getSubjectsList());
         expListView.setAdapter(expandableListAdapter);
     }
 
     private List<String> getSubjectsList() {
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        return databaseHelper.subjectsList();
+        return databaseHelper.subjectsList()[0];
     }
+
+    private List<String> getSubjectCodeList() {
+        return databaseHelper.subjectsList()[1];
+    }
+
 }

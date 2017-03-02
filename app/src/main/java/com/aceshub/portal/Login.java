@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.server_connection.FacultySubjectMapping;
