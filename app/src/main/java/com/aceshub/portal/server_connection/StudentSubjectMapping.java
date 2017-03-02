@@ -1,6 +1,7 @@
 package com.aceshub.portal.server_connection;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
@@ -43,15 +44,15 @@ public class StudentSubjectMapping  {
 
     public void run() {
         ArrayList<FacultySubjectMappingView> arrayList = databaseHelper.getFacultySubjectMappingView();
-      /*  for (FacultySubjectMappingView facultySubjectMappingView : arrayList) {
-            SubjectCode= facultySubjectMappingView.getSubCode();
-            DivisionID = facultySubjectMappingView.getDivID();
-            FacultySubjectMappingID = facultySubjectMappingView.getFacultySubMapID();*/
+        for (FacultySubjectMappingView facultySubjectMappingView : arrayList) {
+            String  SubCode = facultySubjectMappingView.getSubCode();
+            int DivID = facultySubjectMappingView.getDivID();
+            int FSMID = facultySubjectMappingView.getFacultySubMapID();
 
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("COC-15010", SubjectCode);
-            params.put("4290", DivisionID);
-            params.put("6185", FacultySubjectMappingID);
+            params.put("SubjectCode", SubCode);
+            params.put("DivisionID", DivID);
+            params.put("FacultySubjectMappingID", FSMID);
             aQuery.ajax(subsstudents, params, JSONObject.class,new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject json, AjaxStatus status) {
@@ -71,6 +72,10 @@ public class StudentSubjectMapping  {
                                 SubjectTitle = obj.getString("SubjectTitle");
                                 Abbreviation = obj.getString("Abbreviation");
                                 BranchName = obj.getString("BranchName");
+                                SubjectCode = obj.getString("SubjectCode");
+                                DivisionID = obj.getInt("DivisionID");
+                                FacultySubjectMappingID = obj.getInt("FacultySubjectMappingID");
+
 
                                 studentSubjectMappingView.setSubCode(SubjectCode);
                                 studentSubjectMappingView.setDivisionID(DivisionID);
@@ -92,9 +97,11 @@ public class StudentSubjectMapping  {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }else{}
+                    }else{
+                        Log.d("JSON", "NULL");
+                    }
                 }
             });
-        //}
+        }
     }
 }

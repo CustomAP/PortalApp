@@ -167,7 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<FacultySubjectMappingView> facultySubjectMappingViewList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + facultySubMapViewTable;
 
-        Log.e("LOG", selectQuery);
+
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -197,9 +197,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<String> subjectsList() {
         List<String> subjectList = new ArrayList<>();
-        String selectQuery = "SELECT " + column_subTitle + " FROM " + facultySubMapViewTable;
+        String selectQuery = "SELECT DISTINCT " + column_subTitle + " FROM " + facultySubMapViewTable;
 
-        Log.e("LOG", selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
