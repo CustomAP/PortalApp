@@ -41,6 +41,7 @@ public class FacultySubjectMapping {
         aQuery.ajax(falsubs, params, JSONObject.class,new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
+               // Log.d("Status", ""+status.getCode());
                 if (json != null) {
                     try {
                         int length = json.getInt("length");
