@@ -195,24 +195,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return facultySubjectMappingViewList;
     }
 
-    public List<String> subjectsList() {
+    public List<String>[] subjectsList() {
         List<String> subjectList = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT " + column_subTitle + " FROM " + facultySubMapViewTable;
-
+        List<String> subjectCodeList = new ArrayList<>();
+        String selectQuery = "SELECT DISTINCT " + column_subTitle + ", " + column_subCode + " FROM " + facultySubMapViewTable;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to arraylist
         if (c.moveToFirst()) {
             do {
                 subjectList.add(c.getString(c.getColumnIndex(column_subTitle)));
+                subjectCodeList.add(c.getString(c.getColumnIndex(column_subCode)));
             } while (c.moveToNext());
         }
 
         c.close();
 
-        return subjectList;
+        List<String>[] result = new List[2];
+        result[0] = subjectList;
+        result[1] = subjectCodeList;
+
+        return result;
     }
 
     public void InsertStudentSubjectMappingView(StudentSubjectMappingView studentSubjectMappingView) {

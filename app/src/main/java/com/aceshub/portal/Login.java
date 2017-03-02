@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.server_connection.FacultySubjectMapping;
@@ -55,7 +54,7 @@ public class Login extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //facultySubjectMapping.run();
+                facultySubjectMapping.run();
                 //studentSubjectMapping.run();
                         Intent i = new Intent(Login.this, MainActivity.class);
                         startActivity(i);
