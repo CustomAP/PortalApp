@@ -311,7 +311,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String>[] result = new List[2];
         result[0] = Branch;
         result[1] = Division;
-
         return result;
     }
 

@@ -75,11 +75,10 @@ public class Today extends Fragment {
 
         TodayData.clear();
         List<TodayListItem> items = new ArrayList<>();
-        items.add(new TodayListItem("10:00 - 11:00", "Maths"));
-        items.add(new TodayListItem("12:00 - 01:00", "Physics"));
-        items.add(new TodayListItem("03:00 - 04:00", "Chemistry"));
-        items.add(new TodayListItem("04:00 - 05:00", "Biology"));
-        items.add(new TodayListItem("05:00 - 06:00", "CS:GO"));
+        List<String> subjects = databaseHelper.subjectsList()[0];
+        for(String a:subjects){
+            items.add(new TodayListItem("10:00 - 11:00", a));
+        }
         addItems(items);
 
         addLectureFab = (FloatingActionButton) view.findViewById(R.id.add_lecture_fab);
