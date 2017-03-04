@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -15,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aceshub.portal.R;
 import com.aceshub.portal.Today;
 import com.aceshub.portal.attendence.AttendanceActivity;
+import com.aceshub.portal.database.helper.DatabaseHelper;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
     private int[] colors;
 
     private TodayListItem tempItem;
-
+    DatabaseHelper databaseHelper;
     public TodayAdapter(List<TodayListItem> data, Context context) {
         this.data = data;
         colors = context.getResources().getIntArray(R.array.colors);
@@ -49,7 +52,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
         holder.today_subject.setText(todayListItem.getSubjectName());
         holder.card.setCardBackgroundColor(holder.getColor(todayListItem.getSubjectName() +
                 todayListItem.getTime() + "secret"));
-
+        databaseHelper = new DatabaseHelper(context);
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +126,12 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String subject_id = databaseHelper.subjectsList()[1].get(databaseHelper.subjectsList()[0].indexOf(today_subject.getText()));
+
                     Intent intent = new Intent(itemView.getContext(), AttendanceActivity.class);
+                    intent.putExtra("subject_id",subject_id);
+                    intent.putExtra("subject_name",today_subject.getText());
+
                     context.startActivity(intent);
                 }
             });

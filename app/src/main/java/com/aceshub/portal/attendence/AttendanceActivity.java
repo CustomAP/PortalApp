@@ -1,5 +1,6 @@
 package com.aceshub.portal.attendence;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceshub.portal.R;
+import com.aceshub.portal.database.helper.DatabaseHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,9 +31,9 @@ public class AttendanceActivity extends AppCompatActivity {
 
     private SubMenu branches;
     private MenuItem currentBranchItem;
-
+    DatabaseHelper databasehelper;
     private List<MisListItem> studentList = new ArrayList<>();
-
+    static String subject_id, subject_name;
     public static void calculate() {
         update.run();
     }
@@ -40,10 +42,12 @@ public class AttendanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance);
-
+        subject_id = getIntent().getExtras().getString("subject_id");
+        subject_name = getIntent().getExtras().getString("subject_name");
         setTitle("Attendance");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        databasehelper = new DatabaseHelper(getApplicationContext());
         dateTv = (TextView) findViewById(R.id.mis_date_tv);
         dateTv.setText(new SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()));
 
@@ -79,21 +83,12 @@ public class AttendanceActivity extends AppCompatActivity {
     }
 
     private void createDummyData() {
-        studentList.add(new MisListItem("111407001", "Hello Electronics", "EnTC", true));
-        studentList.add(new MisListItem("111407002", "Hi Electronics", "EnTC", true));
-        studentList.add(new MisListItem("111407003", "Bye Electronics", "EnTC", true));
-        studentList.add(new MisListItem("111407004", "Goodbye Electronics", "EnTC", true));
-        studentList.add(new MisListItem("111407005", "Good Afternoon Electronics", "EnTC", true));
-        studentList.add(new MisListItem("111403001", "Hello Computer", "COMP", true));
-        studentList.add(new MisListItem("111403002", "Hi Computer", "COMP", true));
-        studentList.add(new MisListItem("111403003", "Bye Computer", "COMP", true));
-        studentList.add(new MisListItem("111403004", "Goodbye Computer", "COMP", true));
-        studentList.add(new MisListItem("111403005", "Good Afternoon Computer", "COMP", true));
-        studentList.add(new MisListItem("111405001", "Hello Electrical", "ELEC", true));
-        studentList.add(new MisListItem("111405002", "Hi Electrical", "ELEC", true));
-        studentList.add(new MisListItem("111405003", "Bye Electrical", "ELEC", true));
-        studentList.add(new MisListItem("111405004", "Goodbye Electrical", "ELEC", true));
-        studentList.add(new MisListItem("111405005", "Good Afternoon Electrical", "ELEC", true));
+        List<String> student_name_list = databasehelper.getAllStudentList(subject_id)[0];
+        List<String> student_regcode_list = databasehelper.getAllStudentList(subject_id)[1];
+        int i = 0;
+        for(i = 0; i < student_name_list.size();i++){
+            studentList.add(new MisListItem(student_regcode_list.get(i), student_name_list.get(i),subject_name, true));
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -185,6 +180,9 @@ public class AttendanceActivity extends AppCompatActivity {
 
     public void setBranchwiseData(int branchCode) {
         String branchName;
+        List<String> branch_names = databasehelper.getBranchandDivision(subject_id)[0];
+        List<String> branch_division = databasehelper.getBranchandDivision(subject_id)[1];
+
 
         switch (branchCode) {
             case 0:

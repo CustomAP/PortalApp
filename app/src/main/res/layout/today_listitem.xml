@@ -28,7 +28,7 @@
                 android:paddingStart="10dp"
                 android:text="10:00 - 11:00"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp" />
+                android:textSize="15sp" />
 
             <ImageButton
                 android:id="@+id/menu_imgbtn"
@@ -50,7 +50,7 @@
             android:paddingStart="10dp"
             android:text="Maths"
             android:textColor="#FFFFFF"
-            android:textSize="50sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>
 
