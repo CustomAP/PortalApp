@@ -37,7 +37,7 @@ public class Subjects extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
         expListView = (ExpandableListView) view.findViewById(R.id.subjects_expandable_layout);
-        expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), getSubjectsList());
+        expandableListAdapter = new ExpandableListAdapter(expListView, getContext(), getSubjectsList(), getSubjectCodeList());
         expListView.setAdapter(expandableListAdapter);
     }
 

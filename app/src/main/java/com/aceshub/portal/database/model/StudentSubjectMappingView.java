@@ -15,6 +15,7 @@ public class StudentSubjectMappingView {
     String subType;
     String branchname;
     String nameofstudent;
+    String Division;
     int SID;
 
     public void setNameofstudent(String nameofstudent) {
@@ -31,6 +32,10 @@ public class StudentSubjectMappingView {
 
     public void setDivisionID(int divisionID) {
         DivisionID = divisionID;
+    }
+
+    public void setDivision(String division) {
+        Division = division;
     }
 
     public void setSync(int sync) {
@@ -72,6 +77,10 @@ public class StudentSubjectMappingView {
 
     public int getDivisionID() {
         return DivisionID;
+    }
+
+    public String getDivision() {
+        return Division;
     }
 
     public int getSync() {

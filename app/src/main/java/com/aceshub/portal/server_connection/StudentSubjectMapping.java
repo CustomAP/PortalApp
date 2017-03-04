@@ -2,6 +2,7 @@ package com.aceshub.portal.server_connection;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.aceshub.portal.database.helper.DatabaseHelper;
 import com.aceshub.portal.database.model.FacultySubjectMappingView;
@@ -28,6 +29,7 @@ public class StudentSubjectMapping  {
     int DivisionID;
     String BranchName;
     String Abbreviation;
+    String Division;
     int FacultySubjectMappingID;
     String SubjectType;
     DatabaseHelper databaseHelper;
@@ -64,21 +66,24 @@ public class StudentSubjectMapping  {
 
                             JSONObject reader = new JSONObject(in);
                             for (int i = 0; i < length; i++) {
+
                                 JSONObject obj = reader.getJSONObject(String.valueOf(i));
                                 SID = obj.getInt("SID");
                                 StudentRegCode = obj.getString("StudentRegCode");
                                 NameofStudent = obj.getString("NameofStudent");
-                                SubjectType = obj.getString("PicklistValueName");
+                                SubjectType = obj.getString("SubjectType");
                                 SubjectTitle = obj.getString("SubjectTitle");
                                 Abbreviation = obj.getString("Abbreviation");
                                 BranchName = obj.getString("BranchName");
                                 SubjectCode = obj.getString("SubjectCode");
                                 DivisionID = obj.getInt("DivisionID");
+                                Division = obj.getString("Division");
                                 FacultySubjectMappingID = obj.getInt("FacultySubjectMappingID");
 
 
                                 studentSubjectMappingView.setSubCode(SubjectCode);
                                 studentSubjectMappingView.setDivisionID(DivisionID);
+                                studentSubjectMappingView.setDivision(Division);
                                 studentSubjectMappingView.setFacultySubjectMappingID(FacultySubjectMappingID);
                                 studentSubjectMappingView.setSID(SID);
                                 studentSubjectMappingView.setStregcode(StudentRegCode);
@@ -102,6 +107,7 @@ public class StudentSubjectMapping  {
                     }
                 }
             });
+
         }
     }
 }

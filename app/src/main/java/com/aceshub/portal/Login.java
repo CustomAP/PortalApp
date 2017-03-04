@@ -23,7 +23,6 @@ public class Login extends AppCompatActivity {
     TextView tv1, tv2;
     EditText et1, et2;
     FacultySubjectMapping facultySubjectMapping;
-    StudentSubjectMapping studentSubjectMapping;
     SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +47,13 @@ public class Login extends AppCompatActivity {
         sqLiteDatabase = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
 
         facultySubjectMapping =  new FacultySubjectMapping("411402064", getApplicationContext());
-        studentSubjectMapping = new StudentSubjectMapping(getApplicationContext());
+
 
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                facultySubjectMapping.run();
-                //studentSubjectMapping.run();
+        //        facultySubjectMapping.run();
                 Intent i = new Intent(Login.this, MainActivity.class);
                         startActivity(i);
                         finish();

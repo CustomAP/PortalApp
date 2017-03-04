@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String column_end = "EndTime";
     private static final String column_flag = "Flag";
     private static final String column_abbreviation = "Abbreviation";
+    private static final String column_div = "Division";
 
     private static final int DBVersion = 1;
 
@@ -57,11 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createFacultySubMapView = "CREATE TABLE " + facultySubMapViewTable +
                 " (" + column_FID + " INT, "
                 + column_subCode + " VARCHAR(16), "
-                + column_subTitle + " VARCHAR(32), "
+                + column_subTitle + " VARCHAR(50), "
                 + column_subType + " VARCHAR(16), "
                 + column_divID + " INT, "
+                + column_div + " VARCHAR(20), "
                 + column_facultySubMapID + " INT, "
-                + column_branchName + " VARCHAR(16), "
+                + column_branchName + " VARCHAR(50), "
                 + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
                 + "PRIMARY KEY (" + column_FID + "));";
@@ -73,10 +75,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_stRegCode + " VARCHAR(16), "
                 + column_stName + " VARCHAR(50), "
                 + column_subCode + " VARCHAR(16), "
-                + column_subTitle + " VARCHAR(32), "
+                + column_subTitle + " VARCHAR(50), "
                 + column_subType + " VARCHAR(16), "
                 + column_divID + " INT, "
-                + column_branchName + " VARCHAR(32), "
+                + column_div + " VARCHAR(20), "
+                + column_branchName + " VARCHAR(50), "
                 + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
                 + "PRIMARY KEY (" + column_SID + "))";
@@ -156,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(column_subTitle, facultySubjectMappingView.getSubTitle());
         values.put(column_subType, facultySubjectMappingView.getSubType());
         values.put(column_divID, facultySubjectMappingView.getDivID());
+        values.put(column_div, facultySubjectMappingView.getDiv());
         values.put(column_facultySubMapID, facultySubjectMappingView.getFacultySubMapID());
         values.put(column_branchName, facultySubjectMappingView.getBranch());
         values.put(column_abbreviation, facultySubjectMappingView.getAbbreviation());
@@ -167,8 +171,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<FacultySubjectMappingView> getFacultySubjectMappingView() {
         ArrayList<FacultySubjectMappingView> facultySubjectMappingViewList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + facultySubMapViewTable;
-
-
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -182,6 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 facultySubjectMappingView.setSubTitle(c.getString(c.getColumnIndex(column_subTitle)));
                 facultySubjectMappingView.setSubType(c.getString(c.getColumnIndex(column_subType)));
                 facultySubjectMappingView.setDivID(c.getInt((c.getColumnIndex(column_divID))));
+                facultySubjectMappingView.setDiv(c.getString((c.getColumnIndex(column_div))));
                 facultySubjectMappingView.setFacultySubMapID((c.getInt(c.getColumnIndex(column_facultySubMapID))));
                 facultySubjectMappingView.setBranch(c.getString(c.getColumnIndex(column_branchName)));
                 facultySubjectMappingView.setAbbreviation(c.getString(c.getColumnIndex(column_abbreviation)));
@@ -230,6 +233,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(column_subTitle, studentSubjectMappingView.getSubTitle());
         values.put(column_subType, studentSubjectMappingView.getSubType());
         values.put(column_divID, studentSubjectMappingView.getDivisionID());
+        values.put(column_div, studentSubjectMappingView.getDivision());
         values.put(column_facultySubMapID, studentSubjectMappingView.getFacultySubjectMappingID());
         values.put(column_branchName, studentSubjectMappingView.getBranchname());
         values.put(column_abbreviation, studentSubjectMappingView.getAbbreviation());
@@ -249,6 +253,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.insert(timetableTable, null, values);
     }
+
+
+    public List<String>[] getAllStudentList(String SubjectCode) {
+        List<String> StudentName = new ArrayList<>();
+        List<String> StudentRegCode = new ArrayList<>();
+        try {
+            String selectQuery = "SELECT " + column_stName + ", " + column_stRegCode
+                    + " FROM " + studentSubMapTable + " WHERE " + column_subCode + " = '" + SubjectCode + "'";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    StudentName.add(c.getString(c.getColumnIndex(column_stName)));
+                    StudentRegCode.add(c.getString(c.getColumnIndex(column_stRegCode)));
+                } while (c.moveToNext());
+            }
+
+            c.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        List<String>[] result = new List[2];
+        result[0] = StudentName;
+        result[1] = StudentRegCode;
+
+
+
+
+        return result;
+    }
+
+    public List<String>[] getBranchandDivision(String SubjectCode) {
+        List<String> Branch = new ArrayList<>();
+        List<String> Division = new ArrayList<>();
+        try {
+            String selectQuery = "SELECT " + column_branchName + ", " + column_div + " FROM " + facultySubMapViewTable + " WHERE " + column_subCode + " = '" + SubjectCode + "'";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Branch.add(c.getString(c.getColumnIndex(column_branchName)));
+                    Division.add(c.getString(c.getColumnIndex(column_div)));
+                } while (c.moveToNext());
+            }
+
+            c.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        List<String>[] result = new List[2];
+        result[0] = Branch;
+        result[1] = Division;
+
+        return result;
+    }
+
+    public List<String>[] getStudentListBranchAndDivisionWise(String SubjectCode, String Branch, String Division) {
+        List<String> StudentName = new ArrayList<>();
+        List<String> StudentRegCode = new ArrayList<>();
+        try {
+            String selectQuery = "SELECT " + column_stName + ", " + column_stRegCode
+                    + " FROM " + studentSubMapTable + " WHERE " + column_subCode + " = '" + SubjectCode + "' and " + column_branchName + " = '" + Branch + "' and " + column_div + " = '" + Division + "'";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    StudentName.add(c.getString(c.getColumnIndex(column_stName)));
+                    StudentRegCode.add(c.getString(c.getColumnIndex(column_stRegCode)));
+                } while (c.moveToNext());
+            }
+
+            c.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<String>[] result = new List[2];
+        result[0] = StudentName;
+        result[1] = StudentRegCode;
+
+        return result;
+    }
+
+
+
 
 }
 
