@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aceshub.portal.R;
 import com.aceshub.portal.Today;
@@ -28,11 +27,10 @@ import java.util.List;
 public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> {
 
     Context context;
+    DatabaseHelper databaseHelper;
     private List<TodayListItem> data;
     private int[] colors;
-
     private TodayListItem tempItem;
-    DatabaseHelper databaseHelper;
     public TodayAdapter(List<TodayListItem> data, Context context) {
         this.data = data;
         colors = context.getResources().getIntArray(R.array.colors);
@@ -126,8 +124,9 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String subject_id = databaseHelper.subjectsList()[1].get(databaseHelper.subjectsList()[0].indexOf(today_subject.getText()));
 
+                    String subject_id = databaseHelper.subjectsList()[1].get(databaseHelper.subjectsList()[0].indexOf(today_subject.getText()));
+                    Log.d("sf", subject_id);
                     Intent intent = new Intent(itemView.getContext(), AttendanceActivity.class);
                     intent.putExtra("subject_id",subject_id);
                     intent.putExtra("subject_name",today_subject.getText());

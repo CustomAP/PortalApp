@@ -49,7 +49,7 @@ public class StudentSubjectMapping  {
         for (FacultySubjectMappingView facultySubjectMappingView : arrayList) {
             String  SubCode = facultySubjectMappingView.getSubCode();
             int DivID = facultySubjectMappingView.getDivID();
-            int FSMID = facultySubjectMappingView.getFacultySubMapID();
+            int FSMID = facultySubjectMappingView.getFsmid();
 
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("SubjectCode", SubCode);

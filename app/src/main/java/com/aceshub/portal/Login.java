@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
         //creating database
         sqLiteDatabase = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
 
-        facultySubjectMapping =  new FacultySubjectMapping("410902014", getApplicationContext());
+        facultySubjectMapping =  new FacultySubjectMapping("411402064", getApplicationContext());
 
 
 
