@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.aceshub.portal.server_connection.StudentSubjectMapping;
 import com.aceshub.portal.subjects.Subjects;
 
 public class MainActivity extends AppCompatActivity
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity
     public static FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     DrawerLayout drawerLayout;
+    StudentSubjectMapping studentSubjectMapping;
     private boolean exit = false;
 
     @Override
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_today);              //Setting Today checked when activity first opens.
+
+        //Getting Students of all subjects from database
+        studentSubjectMapping = new StudentSubjectMapping(getApplicationContext());
+        studentSubjectMapping.run();
+
 
         //Creating fragments
         fragmentManager = getSupportFragmentManager();              //Initiation

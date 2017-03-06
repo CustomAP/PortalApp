@@ -24,7 +24,7 @@ public class FacultySubjectMapping {
     private int ret = 0;
     private com.aceshub.portal.database.model.FacultySubjectMappingView facultySubjectMappingView;
     private int FID;
-    private String SubjectCode, SubjectType, SubjectTitle, PicklistValueName, BranchName, Abbreviation;
+    private String SubjectCode, SubjectType, SubjectTitle, BranchName, Abbreviation, Division;
     private int DivisionID, FacultySubjectMappingID;
     private DatabaseHelper databaseHelper;
 
@@ -55,7 +55,8 @@ public class FacultySubjectMapping {
                             SubjectCode = obj.getString("SubjectCode");
                             SubjectTitle = obj.getString("SubjectTitle");
                             DivisionID = obj.getInt("DivisionID");
-                            PicklistValueName = obj.getString("PicklistValueName");
+                            Division = obj.getString("Division");
+                            SubjectType = obj.getString("SubjectType");
                             BranchName = obj.getString("BranchName");
                             Abbreviation = obj.getString("Abbreviation");
                             FacultySubjectMappingID = obj.getInt("FacultySubjectMappingID");
@@ -64,11 +65,12 @@ public class FacultySubjectMapping {
                             facultySubjectMappingView.setBranch(BranchName);
                             facultySubjectMappingView.setAbbreviation(Abbreviation);
                             facultySubjectMappingView.setDivID(DivisionID);
+                            facultySubjectMappingView.setDiv(Division);
                             facultySubjectMappingView.setFacultySubMapID(FacultySubjectMappingID);
                             facultySubjectMappingView.setFid(FID);
                             facultySubjectMappingView.setSubCode(SubjectCode);
                             facultySubjectMappingView.setSubTitle(SubjectTitle);
-                            facultySubjectMappingView.setSubType(PicklistValueName);
+                            facultySubjectMappingView.setSubType(SubjectType);
                             facultySubjectMappingView.setSync(0);
 
 

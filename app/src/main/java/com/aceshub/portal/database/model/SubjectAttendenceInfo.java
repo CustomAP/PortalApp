@@ -12,14 +12,7 @@ public class SubjectAttendenceInfo {
     //String subCode,subTitle,subType,divID,facultySubMapID,branch;
     boolean sync;
 
-    public SubjectAttendenceInfo(int Fid,int SIID,int flag_ID,Date sDate,Date devDate,Time sTime,Time devTime ) {
-        this.Fid = Fid;
-        this.SIID=SIID;
-        this.flag_ID=flag_ID;
-        this.sDate=sDate;
-        this.devDate=devDate;
-        this.sTime=sTime;
-        this.devTime=devTime;
+    public SubjectAttendenceInfo( ) {
     }
 
     //Setter
