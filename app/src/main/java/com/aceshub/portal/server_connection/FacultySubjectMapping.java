@@ -23,9 +23,9 @@ public class FacultySubjectMapping {
     private String id;
     private int ret = 0;
     private com.aceshub.portal.database.model.FacultySubjectMappingView facultySubjectMappingView;
-    private int FID;
+    private int FSMID;
     private String SubjectCode, SubjectType, SubjectTitle, BranchName, Abbreviation, Division;
-    private int DivisionID, FacultySubjectMappingID;
+    private int DivisionID;
     private DatabaseHelper databaseHelper;
 
     public FacultySubjectMapping(String id, Context context) {
@@ -51,7 +51,7 @@ public class FacultySubjectMapping {
                         JSONObject reader = new JSONObject(in);
                         for (int i = 0; i < length; i++) {
                             JSONObject obj = reader.getJSONObject(String.valueOf(i));
-                            FID = obj.getInt("FID");
+                            FSMID = obj.getInt("FSMID");
                             SubjectCode = obj.getString("SubjectCode");
                             SubjectTitle = obj.getString("SubjectTitle");
                             DivisionID = obj.getInt("DivisionID");
@@ -59,15 +59,13 @@ public class FacultySubjectMapping {
                             SubjectType = obj.getString("SubjectType");
                             BranchName = obj.getString("BranchName");
                             Abbreviation = obj.getString("Abbreviation");
-                            FacultySubjectMappingID = obj.getInt("FacultySubjectMappingID");
 
                             //Setter methods of FacultySubjectsMappingView
                             facultySubjectMappingView.setBranch(BranchName);
                             facultySubjectMappingView.setAbbreviation(Abbreviation);
                             facultySubjectMappingView.setDivID(DivisionID);
                             facultySubjectMappingView.setDiv(Division);
-                            facultySubjectMappingView.setFacultySubMapID(FacultySubjectMappingID);
-                            facultySubjectMappingView.setFid(FID);
+                            facultySubjectMappingView.setFsmid(FSMID);
                             facultySubjectMappingView.setSubCode(SubjectCode);
                             facultySubjectMappingView.setSubTitle(SubjectTitle);
                             facultySubjectMappingView.setSubType(SubjectType);

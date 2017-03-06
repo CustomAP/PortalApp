@@ -119,14 +119,14 @@ public class Today extends Fragment {
     }
 
     private void getBranchList() {
-        List<String> list= databaseHelper.getBranchandDivision("ETC-15001")[0];
+        List<String> list= databaseHelper.getBranchAndDivision("ETC-15001")[0];
         for(int i = 0; i < list.size(); i++) {
             Log.d("Branch", "" + list.get(i));
         }
     }
 
     private void getDivisionList(){
-        List<String> list= databaseHelper.getBranchandDivision("ETC-15001")[1];
+        List<String> list= databaseHelper.getBranchAndDivision("ETC-15001")[1];
         for(int i = 0; i < list.size(); i++) {
             Log.d("Division", "" + list.get(i));
         }

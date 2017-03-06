@@ -180,8 +180,8 @@ public class AttendanceActivity extends AppCompatActivity {
 
     public void setBranchwiseData(int branchCode) {
         String branchName;
-        List<String> branch_names = databasehelper.getBranchandDivision(subject_id)[0];
-        List<String> branch_division = databasehelper.getBranchandDivision(subject_id)[1];
+        List<String> branch_names = databasehelper.getBranchAndDivision(subject_id)[0];
+        List<String> branch_division = databasehelper.getBranchAndDivision(subject_id)[1];
 
 
         switch (branchCode) {
