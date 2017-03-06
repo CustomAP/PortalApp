@@ -311,7 +311,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<String>[] getBranchandDivision(String SubjectCode) {
+    public List<String>[] getBranchAndDivision(String SubjectCode) {
         List<String> Branch = new ArrayList<>();
         List<String> Division = new ArrayList<>();
         try {

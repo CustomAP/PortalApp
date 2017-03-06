@@ -1,6 +1,5 @@
 package com.aceshub.portal.attendence;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,18 +21,17 @@ import java.util.List;
 
 public class AttendanceActivity extends AppCompatActivity {
 
+    static String subject_id, subject_name;
     private static Thread update;
-
+    DatabaseHelper databasehelper;
     private TextView presentNoTv, absentNoTv, dateTv;
     private RecyclerView recyclerView;
     private MisAdapter adapter;
     private Button saveAttendance;
-
     private SubMenu branches;
     private MenuItem currentBranchItem;
-    DatabaseHelper databasehelper;
     private List<MisListItem> studentList = new ArrayList<>();
-    static String subject_id, subject_name;
+
     public static void calculate() {
         update.run();
     }
@@ -42,6 +40,7 @@ public class AttendanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendance);
+
         subject_id = getIntent().getExtras().getString("subject_id");
         subject_name = getIntent().getExtras().getString("subject_name");
         setTitle("Attendance");
@@ -138,25 +137,25 @@ public class AttendanceActivity extends AppCompatActivity {
                 markAll(false);
                 break;
             case 0:
-                setBranchwiseData(0);
+                setBranchWiseData(0);
                 currentBranchItem.setChecked(false);
                 currentBranchItem = item;
                 item.setChecked(true);
                 break;
             case 1:
-                setBranchwiseData(1);
+                setBranchWiseData(1);
                 currentBranchItem.setChecked(false);
                 currentBranchItem = item;
                 item.setChecked(true);
                 break;
             case 2:
-                setBranchwiseData(2);
+                setBranchWiseData(2);
                 currentBranchItem.setChecked(false);
                 currentBranchItem = item;
                 item.setChecked(true);
                 break;
             case 3:
-                setBranchwiseData(3);
+                setBranchWiseData(3);
                 currentBranchItem.setChecked(false);
                 currentBranchItem = item;
                 item.setChecked(true);
@@ -178,11 +177,10 @@ public class AttendanceActivity extends AppCompatActivity {
         update.run();
     }
 
-    public void setBranchwiseData(int branchCode) {
+    public void setBranchWiseData(int branchCode) {
         String branchName;
-        List<String> branch_names = databasehelper.getBranchandDivision(subject_id)[0];
-        List<String> branch_division = databasehelper.getBranchandDivision(subject_id)[1];
-
+        List<String> branch_names = databasehelper.getBranchAndDivision(subject_id)[0];
+        List<String> branch_division = databasehelper.getBranchAndDivision(subject_id)[1];
 
         switch (branchCode) {
             case 0:
@@ -198,11 +196,11 @@ public class AttendanceActivity extends AppCompatActivity {
                 branchName = "ELEC";
                 break;
             default:
-                branchName = "INVALID";
-                break;
+                Toast.makeText(this, "Failed to get branch", Toast.LENGTH_SHORT).show();
+                return;
         }
 
-        if (!branchName.equals("INVALID") && !branchName.equals("ALL")) {
+        if (!branchName.equals("ALL")) {
             studentList.clear();
             Toast.makeText(this, branchName, Toast.LENGTH_SHORT).show();
             for (MisListItem item : MisData.getData()) {
