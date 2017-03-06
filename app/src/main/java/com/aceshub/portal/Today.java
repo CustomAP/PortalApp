@@ -53,6 +53,12 @@ public class Today extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        databaseHelper.close();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -62,12 +68,6 @@ public class Today extends Fragment {
         recyclerView.setAdapter(adapter);
 
         databaseHelper = new DatabaseHelper(getActivity());
-        //getAllStudentsName();
-        //getAllStudentsRegCode();
-        getBranchList();
-        getDivisionList();
-        getStudentsNameBranchandDivisionWise();
-        getStudentsRegCodeBranchandDivisionWise();
 
         dateTv = (TextView) view.findViewById(R.id.today_date_tv);
         dateTv.setText("");
@@ -75,16 +75,17 @@ public class Today extends Fragment {
 
         TodayData.clear();
         List<TodayListItem> items = new ArrayList<>();
-        items.add(new TodayListItem("10:00 - 11:00", "Maths"));
-        items.add(new TodayListItem("12:00 - 01:00", "Physics"));
-        items.add(new TodayListItem("03:00 - 04:00", "Chemistry"));
-        items.add(new TodayListItem("04:00 - 05:00", "Biology"));
-        items.add(new TodayListItem("05:00 - 06:00", "CS:GO"));
+        List<String> subjects = databaseHelper.subjectsList()[0];
+        for(String a:subjects){
+            items.add(new TodayListItem("10:00 - 11:00", a));
+        }
         addItems(items);
 
         addLectureFab = (FloatingActionButton) view.findViewById(R.id.add_lecture_fab);
         addLectureFab.setOnClickListener(addLecture);
     }
+
+
 
     public void addItems(List<TodayListItem> items) {
         for (TodayListItem item : items) {

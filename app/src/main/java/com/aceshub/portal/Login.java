@@ -46,14 +46,14 @@ public class Login extends AppCompatActivity {
         //creating database
         sqLiteDatabase = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
 
-        facultySubjectMapping =  new FacultySubjectMapping("411402064", getApplicationContext());
+        facultySubjectMapping =  new FacultySubjectMapping("410902014", getApplicationContext());
 
 
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        //        facultySubjectMapping.run();
+                facultySubjectMapping.run();
                 Intent i = new Intent(Login.this, MainActivity.class);
                         startActivity(i);
                         finish();

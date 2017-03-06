@@ -28,7 +28,7 @@
                 android:paddingStart="10dp"
                 android:text="10:00 - 11:00"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
             <ImageButton
                 android:id="@+id/menu_imgbtn"
@@ -45,12 +45,13 @@
             android:id="@+id/today_subjectname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
+            android:layout_gravity="center"
             android:paddingStart="10dp"
             android:text="Maths"
             android:textColor="#FFFFFF"
-            android:textSize="50sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>
 
