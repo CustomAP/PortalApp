@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String studentSubAttendanceTable = "StudentSubjectAttendance";
     private static final String subAttendanceInfoFlagTable = "SubjectAttendanceInfoFlag";
     private static final String timetableTable = "Timetable";
-    private static final String column_FID = "FID";
+    private static final String column_FSMID = "FSMID";
     private static final String column_subCode = "SubjectCode";
     private static final String column_subTitle = "SubjectTitle";
     private static final String column_divID = "DivisionID";
@@ -52,24 +52,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DBVersion = 1;
 
+    private Context context;
+
     public DatabaseHelper(Context context) {
         super(context, DBName, null, DBVersion);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createFacultySubMapView = "CREATE TABLE " + facultySubMapViewTable +
-                " (" + column_FID + " INT, "
+                " (" + column_FSMID + " INT, "
                 + column_subCode + " VARCHAR(16), "
                 + column_subTitle + " VARCHAR(50), "
                 + column_subType + " VARCHAR(16), "
                 + column_divID + " INT, "
                 + column_div + " VARCHAR(20), "
-                + column_facultySubMapID + " INT, "
                 + column_branchName + " VARCHAR(50), "
                 + column_abbreviation + " VARCHAR(10), "
                 + column_sync + " BOOLEAN, "
-                + "PRIMARY KEY (" + column_FID + "));";
+                + "PRIMARY KEY (" + column_FSMID + "));";
 
 
         String createStudentSubMap = "CREATE TABLE " + studentSubMapTable +
@@ -89,15 +91,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createSubAttendanceInfo = "CREATE TABLE " + subAttendanceInfoTable +
                 " (" + column_SIID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + column_FID + " INT, "
+                + column_FSMID + " INT, "
                 + column_flagID + " INT, "
                 + column_sDate + " DATE, "
                 + column_sTime + " TIME, "
                 + column_devDate + " DATE, "
                 + column_devTime + " TIME, "
                 + column_sync + " BOOLEAN, "
-                + "FOREIGN KEY (" + column_FID + ") REFERENCES "
-                + facultySubMapViewTable + "(" + column_FID + ") "
+                + "FOREIGN KEY (" + column_FSMID + ") REFERENCES "
+                + facultySubMapViewTable + "(" + column_FSMID + ") "
                 + "ON DELETE SET NULL);";
 
         String createStudentSubAttendance = "CREATE TABLE " + studentSubAttendanceTable +
@@ -157,13 +159,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void InsertFacultySubjectMappingView(FacultySubjectMappingView facultySubjectMappingView) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(column_FID, facultySubjectMappingView.getFid());
+        values.put(column_FSMID, facultySubjectMappingView.getFsmid());
         values.put(column_subCode, facultySubjectMappingView.getSubCode());
         values.put(column_subTitle, facultySubjectMappingView.getSubTitle());
         values.put(column_subType, facultySubjectMappingView.getSubType());
         values.put(column_divID, facultySubjectMappingView.getDivID());
         values.put(column_div, facultySubjectMappingView.getDiv());
-        values.put(column_facultySubMapID, facultySubjectMappingView.getFacultySubMapID());
         values.put(column_branchName, facultySubjectMappingView.getBranch());
         values.put(column_abbreviation, facultySubjectMappingView.getAbbreviation());
         values.put(column_sync, facultySubjectMappingView.isSync());
@@ -184,13 +185,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (c.moveToFirst()) {
                 do {
                     FacultySubjectMappingView facultySubjectMappingView = new FacultySubjectMappingView();
-                    facultySubjectMappingView.setFid(c.getInt(c.getColumnIndex(column_FID)));
+                    facultySubjectMappingView.setFsmid(c.getInt(c.getColumnIndex(column_FSMID)));
                     facultySubjectMappingView.setSubCode(c.getString((c.getColumnIndex(column_subCode))));
                     facultySubjectMappingView.setSubTitle(c.getString(c.getColumnIndex(column_subTitle)));
                     facultySubjectMappingView.setSubType(c.getString(c.getColumnIndex(column_subType)));
                     facultySubjectMappingView.setDivID(c.getInt((c.getColumnIndex(column_divID))));
                     facultySubjectMappingView.setDiv(c.getString((c.getColumnIndex(column_div))));
-                    facultySubjectMappingView.setFacultySubMapID((c.getInt(c.getColumnIndex(column_facultySubMapID))));
                     facultySubjectMappingView.setBranch(c.getString(c.getColumnIndex(column_branchName)));
                     facultySubjectMappingView.setAbbreviation(c.getString(c.getColumnIndex(column_abbreviation)));
                     facultySubjectMappingView.setSync(c.getInt(c.getColumnIndex(column_sync)));
@@ -211,8 +211,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<String>[] subjectsList() {
         List<String> subjectList = new ArrayList<>();
         List<String> subjectCodeList = new ArrayList<>();
-        List<String> FID = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT " + column_FID+ ", "+ column_subTitle + ", " + column_subCode + " FROM " + facultySubMapViewTable;
+        String selectQuery = "SELECT DISTINCT "+ column_subTitle + ", " + column_subCode + " FROM " + facultySubMapViewTable;
 
         try {
             SQLiteDatabase db = this.getReadableDatabase();
@@ -222,7 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
                     subjectList.add(c.getString(c.getColumnIndex(column_subTitle)));
                     subjectCodeList.add(c.getString(c.getColumnIndex(column_subCode)));
-                    FID.add(c.getString(c.getColumnIndex(column_FID)));
+
                 } while (c.moveToNext());
             }
 
@@ -232,10 +231,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
-        List<String>[] result = new List[3];
+        List<String>[] result = new List[2];
         result[0] = subjectList;
         result[1] = subjectCodeList;
-        result[2] = FID;
 
         return result;
     }
@@ -300,7 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
 
-        List<String>[] result = new List[2];
+        List<String>[] result = new List[3];
         result[0] = StudentName;
         result[1] = StudentRegCode;
         result[2] = SID;
@@ -315,7 +313,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String> Branch = new ArrayList<>();
         List<String> Division = new ArrayList<>();
         try {
-            String selectQuery = "SELECT " + column_branchName + ", " + column_div + " FROM " + facultySubMapViewTable + " WHERE " + column_subCode + " = '" + SubjectCode + "'";
+            String selectQuery = "SELECT " + column_FSMID + ", "+ column_branchName + ", " + column_div + " FROM " + facultySubMapViewTable + " WHERE " + column_subCode + " = '" + SubjectCode + "'";
 
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
@@ -341,8 +339,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<String>[] getStudentListBranchAndDivisionWise(String SubjectCode, String Branch, String Division) {
         List<String> StudentName = new ArrayList<>();
         List<String> StudentRegCode = new ArrayList<>();
+        List<String> SID = new ArrayList<>();
         try {
-            String selectQuery = "SELECT " + column_stName + ", " + column_stRegCode
+            String selectQuery = "SELECT " + column_SID +", " + column_stName + ", " + column_stRegCode
                     + " FROM " + studentSubMapTable + " WHERE " + column_subCode + " = '" + SubjectCode + "' and " + column_branchName + " = '" + Branch + "' and " + column_div + " = '" + Division + "'";
 
             SQLiteDatabase db = this.getReadableDatabase();
@@ -352,6 +351,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
                     StudentName.add(c.getString(c.getColumnIndex(column_stName)));
                     StudentRegCode.add(c.getString(c.getColumnIndex(column_stRegCode)));
+                    SID.add(c.getString(c.getColumnIndex(column_SID)));
                 } while (c.moveToNext());
             }
 
@@ -360,11 +360,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        List<String>[] result = new List[2];
+        List<String>[] result = new List[3];
         result[0] = StudentName;
         result[1] = StudentRegCode;
-
-
+        result[2] = SID;
 
         return result;
     }
@@ -374,7 +373,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(column_FID, subjectAttendenceInfo.getFid());
+        values.put(column_FSMID, subjectAttendenceInfo.getFid());
         values.put(column_flagID, subjectAttendenceInfo.getFlag_ID());
         values.put(column_sDate, String.valueOf(subjectAttendenceInfo.getsDate()));
         values.put(column_sTime, String.valueOf(subjectAttendenceInfo.getsTime()));

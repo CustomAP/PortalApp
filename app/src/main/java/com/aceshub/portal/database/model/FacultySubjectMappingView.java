@@ -6,7 +6,7 @@ package com.aceshub.portal.database.model;
 
 public class FacultySubjectMappingView {
 
-    private int Fid, divID, sync, facultySubMapID;
+    private int Fsmid, divID, sync;
     private String subCode, subTitle, subType, branch, abbreviation, div;
 
     public FacultySubjectMappingView() {
@@ -16,12 +16,12 @@ public class FacultySubjectMappingView {
         this.sync = sync;
     }
 
-    public int getFid() {
-        return Fid;
+    public int getFsmid() {
+        return Fsmid;
     }
 
-    public void setFid(int fid) {
-        this.Fid = fid;
+    public void setFsmid(int fsmid) {
+        this.Fsmid = fsmid;
     }
 
     public String getSubCode() {
@@ -61,14 +61,6 @@ public class FacultySubjectMappingView {
 
     public void setDiv(String div) {
         this.div = div;
-    }
-
-    public int getFacultySubMapID() {
-        return facultySubMapID;
-    }
-
-    public void setFacultySubMapID(int facultySubMapID) {
-        this.facultySubMapID = facultySubMapID;
     }
 
     public String getBranch() {

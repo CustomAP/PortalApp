@@ -68,6 +68,7 @@ public class Today extends Fragment {
         recyclerView.setAdapter(adapter);
 
         databaseHelper = new DatabaseHelper(getActivity());
+        getBranchList();
 
         dateTv = (TextView) view.findViewById(R.id.today_date_tv);
         dateTv.setText("");
@@ -126,7 +127,7 @@ public class Today extends Fragment {
     }
 
     private void getDivisionList(){
-        List<String> list = databaseHelper.getBranchAndDivision("ETC-15001")[1];
+        List<String> list= databaseHelper.getBranchAndDivision("ETC-15001")[1];
         for(int i = 0; i < list.size(); i++) {
             Log.d("Division", "" + list.get(i));
         }
