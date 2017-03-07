@@ -1,4 +1,4 @@
-package com.aceshub.portal.subjects;
+package com.aceshub.portal.studentstats;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +14,12 @@ import java.util.List;
  * Created by Abhidnya on 2/28/2017.
  */
 
-public class CredsAdapter extends RecyclerView.Adapter<CredsAdapter.DataHolder> {
+public class StudentStatsAdapter extends RecyclerView.Adapter<StudentStatsAdapter.DataHolder> {
 
-    private List<CredsItem> studentsList;
-    private CredsItem item;
+    private List<StudentStatsItem> studentsList;
+    private StudentStatsItem item;
 
-    public CredsAdapter(List<CredsItem> studentsList) {
+    public StudentStatsAdapter(List<StudentStatsItem> studentsList) {
         this.studentsList = studentsList;
     }
 

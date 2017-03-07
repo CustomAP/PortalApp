@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about) {
             addFragment(new About());
+        } else if (id == R.id.nav_studentstats) {
+            addFragment(new StudentStats());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

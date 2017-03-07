@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aceshub.portal.R;
+import com.aceshub.portal.StudentStats;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 
@@ -253,9 +254,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CredsActivity.class);
+               /* Intent intent = new Intent(context, StudentStats.class);
                 context.startActivity(intent);
-                Toast.makeText(context, headerTitle + " info", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, headerTitle + " info", Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(context, "Subject Info", Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

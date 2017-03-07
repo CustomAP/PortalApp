@@ -412,5 +412,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public int getFacultySubjectMappingFSMID(String SubjectCode, String Division, String BranchName){
+
+        int FSMID = Integer.MAX_VALUE;
+
+        try {
+            String selectQuery = "SELECT " + column_FSMID + " FROM " + facultySubMapViewTable
+                    + " WHERE " + column_subCode + " = '" + SubjectCode + "' and " + column_div + " = '" + Division + "' and " + column_branchName + " = '" + BranchName + "'";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst()) {
+                do {
+                  FSMID = c.getInt(c.getColumnIndex(column_FSMID));
+                } while (c.moveToNext());
+            }
+
+            c.close();
+            db.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return FSMID;
+    }
+
 }
 
