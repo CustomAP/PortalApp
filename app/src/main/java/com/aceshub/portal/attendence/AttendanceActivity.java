@@ -93,7 +93,6 @@ public class AttendanceActivity extends AppCompatActivity {
             return;
         }
 
-        Log.d("Branch", branchNames.get(0) + divisionNames.get(0));
         List<MisListItem> list = getMISList(0);
         for (MisListItem item : list)
             studentList.add(item);

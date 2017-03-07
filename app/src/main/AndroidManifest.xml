@@ -47,10 +47,6 @@
             android:name=".attendence.AttendanceActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".subjects.CredsActivity"
-            android:label="@string/title_activity_creds"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
