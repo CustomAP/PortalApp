@@ -90,12 +90,6 @@ public class AttendanceActivity extends AppCompatActivity {
         branchNames = databasehelper.getBranchAndDivision(SUBJECT_ID)[0];
         divisionNames = databasehelper.getBranchAndDivision(SUBJECT_ID)[1];
 
-        if (branchNames == null || divisionNames == null) {
-            Toast.makeText(this, "NULL", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Log.d("Branch", branchNames.get(0) + divisionNames.get(0));
         List<MisListItem> list = getMISList(0);
         for (MisListItem item : list)
             studentList.add(item);
@@ -220,6 +214,7 @@ public class AttendanceActivity extends AppCompatActivity {
         //Temp
         Log.v("SAVE", "SIDs : " + Arrays.toString(SIDList.toArray()) + "\n" +
                 "Attendence : " + Arrays.toString(ATTENDANCE.toArray()));
+
         finish();
     }
 }
