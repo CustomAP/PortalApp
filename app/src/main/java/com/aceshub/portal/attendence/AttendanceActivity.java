@@ -196,8 +196,9 @@ public class AttendanceActivity extends AppCompatActivity {
     }
 
     public void saveAttendance(View view) {
-        //String FSMID = databasehelper.getFacultySubjectMappingFSMID();
-        //String SIID = databasehelper.getFacultySubjectMappingSIID();
+        String FSMID = String.valueOf(databasehelper.getFacultySubjectMappingFSMID(
+                SUBJECT_ID, branchNames.get(BRANCH_CODE), divisionNames.get(BRANCH_CODE)));
+        String SIID = String.valueOf(databasehelper.getSubjectAttendanceInfoSIID());
         List<String> SIDList = databasehelper.getStudentListBranchAndDivisionWise(
                 SUBJECT_ID, branchNames.get(BRANCH_CODE), divisionNames.get(BRANCH_CODE))[2];
         List<Boolean> ATTENDANCE = new ArrayList<>();
@@ -206,14 +207,9 @@ public class AttendanceActivity extends AppCompatActivity {
             ATTENDANCE.add(item.isPresent());
         }
 
-        //Original
-        //Log.v("SAVE", "FSMID = " + FSMID + "  SIID = " + SIID + "\n" +
-        //      "SIDs : " + Arrays.toString(SIDList.toArray()) + "\n" +
-        //      "Attendence : " + Arrays.toString(ATTENDANCE.toArray()));
-
-        //Temp
-        Log.v("SAVE", "SIDs : " + Arrays.toString(SIDList.toArray()) + "\n" +
-                "Attendence : " + Arrays.toString(ATTENDANCE.toArray()));
+        Log.v("SAVE", "FSMID = " + FSMID + "  SIID = " + SIID + "\n" +
+                "SIDs : " + Arrays.toString(SIDList.toArray()) + "\n" +
+                "Attendance : " + Arrays.toString(ATTENDANCE.toArray()));
 
         finish();
     }
