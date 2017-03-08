@@ -15,7 +15,10 @@ import com.aceshub.portal.database.model.SubjectAttendenceInfo;
 import com.aceshub.portal.database.model.Timetable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DBName = "attendance.db";
@@ -439,5 +442,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return FSMID;
     }
 
+    public List<Integer> getTotalSubjectLectures(int FSMID) {
+        //By getting FSMID return int array of SIID that will define total lectures.
+        List<Integer> result = new ArrayList<Integer>();
+        try {
+            String selectQuery = "SELECT " + column_SIID + " FROM " + subAttendanceInfoTable
+                    + " WHERE " + column_FSMID + " = '" + FSMID + "'";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+            int siid;
+            if (c.moveToFirst()) {
+                do {
+                    siid = c.getInt(c.getColumnIndex(column_SIID));
+                    result.add(siid);
+                } while (c.moveToNext());
+            }
+
+            c.close();
+            db.close();
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public Map<Integer, Float> getStudentLecturePresentyPerc(List<Integer> SIID, List<Integer> SID) {
+        //retrieve status in cursor by giving siid and sid
+        //Count status with value 1 (present)
+        //convert into percentage with respect to size of siid
+        //map <siid, sid>
+
+        Map<Integer, Float> result = new HashMap<>();
+        int total_lectures = SIID.size();
+        int n = SID.size(), i, j;
+        float[] status = new float[n];
+        Arrays.fill(status, 0);
+        for (i = 0; i < total_lectures; i++){
+            for(j = 0; j < n; j++){
+                try {
+                    String selectQuery = "SELECT " + column_status + " FROM " + studentSubAttendanceTable
+                            + " WHERE " + column_SIID + " = '" + SID.get(i)
+                            + "' and " + column_SID + " = '" + SID.get(j) + "'";
+
+                    SQLiteDatabase db = this.getReadableDatabase();
+                    Cursor c = db.rawQuery(selectQuery, null);
+
+                    if (c.moveToFirst()) {
+                        do {
+                            status[j] += c.getInt(c.getColumnIndex(column_status));
+                        } while (c.moveToNext());
+                    }
+                    c.close();
+                    db.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        for (i = 0; i < n; i++){
+            status[i] = status[i] / total_lectures;
+            result.put(SID.get(i), status[i] * 100);
+        }
+        return result;
+    }
 }
 
