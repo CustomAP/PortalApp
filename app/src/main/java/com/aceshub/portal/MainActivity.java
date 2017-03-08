@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
         //Getting Students of all subjects from database
         studentSubjectMapping = new StudentSubjectMapping(getApplicationContext());
-        studentSubjectMapping.run();
+       // studentSubjectMapping.run();
 
 
         //Creating fragments

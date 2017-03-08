@@ -68,7 +68,6 @@ public class Today extends Fragment {
         recyclerView.setAdapter(adapter);
 
         databaseHelper = new DatabaseHelper(getActivity());
-        getBranchList();
 
         dateTv = (TextView) view.findViewById(R.id.today_date_tv);
         dateTv.setText("");

@@ -5,8 +5,8 @@ package com.aceshub.portal.database.model;
  */
 
 public class StudentSubjectAttendance {
-    int Sid, SSid, DivisionID, sync;
-    int status;
+    int Sid, Siid, DivisionID, sync;
+    boolean status;
 
 
     public int getSid() {
@@ -18,12 +18,12 @@ public class StudentSubjectAttendance {
         Sid = sid;
     }
 
-    public int getSSid() {
-        return SSid;
+    public int getSiid() {
+        return Siid;
     }
 
-    public void setSSid(int SSid) {
-        this.SSid = SSid;
+    public void setSiid(int Siid) {
+        this.Siid = Siid;
     }
 
     public int isSync() {
@@ -34,11 +34,11 @@ public class StudentSubjectAttendance {
         this.sync = sync;
     }
 
-    public int isStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 }

@@ -126,7 +126,6 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.DataHolder> 
                 public void onClick(View v) {
 
                     String subject_id = databaseHelper.subjectsList()[1].get(databaseHelper.subjectsList()[0].indexOf(today_subject.getText()));
-                    Log.d("sf", subject_id);
                     Intent intent = new Intent(itemView.getContext(), AttendanceActivity.class);
                     intent.putExtra("subject_id",subject_id);
                     intent.putExtra("subject_name",today_subject.getText());

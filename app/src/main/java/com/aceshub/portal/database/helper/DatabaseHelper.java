@@ -98,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + column_devDate + " DATE, "
                 + column_devTime + " TIME, "
                 + column_sync + " BOOLEAN, "
+                + "UNIQUE (" + column_FSMID + ", " + column_devDate + ", " + column_devTime + ")"
                 + "FOREIGN KEY (" + column_FSMID + ") REFERENCES "
                 + facultySubMapViewTable + "(" + column_FSMID + ") "
                 + "ON DELETE SET NULL);";
@@ -373,7 +374,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(column_FSMID, subjectAttendenceInfo.getFid());
+        values.put(column_FSMID, subjectAttendenceInfo.getFsmid());
         values.put(column_flagID, subjectAttendenceInfo.getFlag_ID());
         values.put(column_sDate, String.valueOf(subjectAttendenceInfo.getsDate()));
         values.put(column_sTime, String.valueOf(subjectAttendenceInfo.getsTime()));
@@ -401,7 +402,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(column_SIID, studentSubjectAttendance.getSSid());
+        values.put(column_SIID, studentSubjectAttendance.getSiid());
         values.put(column_SID, studentSubjectAttendance.getSid());
         values.put(column_status, studentSubjectAttendance.isStatus());
         values.put(column_sync, studentSubjectAttendance.isSync());

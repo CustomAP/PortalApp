@@ -1,5 +1,6 @@
 package com.aceshub.portal.attendence;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +17,16 @@ import android.widget.Toast;
 
 import com.aceshub.portal.R;
 import com.aceshub.portal.database.helper.DatabaseHelper;
+import com.aceshub.portal.database.model.StudentSubjectAttendance;
+import com.aceshub.portal.database.model.SubjectAttendenceInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class AttendanceActivity extends AppCompatActivity {
 
@@ -196,21 +202,78 @@ public class AttendanceActivity extends AppCompatActivity {
     }
 
     public void saveAttendance(View view) {
-        String FSMID = String.valueOf(databasehelper.getFacultySubjectMappingFSMID(
-                SUBJECT_ID, branchNames.get(BRANCH_CODE), divisionNames.get(BRANCH_CODE)));
-        String SIID = String.valueOf(databasehelper.getSubjectAttendanceInfoSIID());
-        List<String> SIDList = databasehelper.getStudentListBranchAndDivisionWise(
-                SUBJECT_ID, branchNames.get(BRANCH_CODE), divisionNames.get(BRANCH_CODE))[2];
+
+
         List<Boolean> ATTENDANCE = new ArrayList<>();
 
         for (MisListItem item : studentList) {
             ATTENDANCE.add(item.isPresent());
         }
 
-        Log.v("SAVE", "FSMID = " + FSMID + "  SIID = " + SIID + "\n" +
+        //Saving Records in background.
+        new DBOperation().execute(ATTENDANCE);
+
+
+        /*Log.v("SAVE", "FSMID = " + FSMID + "  SIID = " + SIID + "\n" +
                 "SIDs : " + Arrays.toString(SIDList.toArray()) + "\n" +
                 "Attendance : " + Arrays.toString(ATTENDANCE.toArray()));
+                */
+
+        //Recording each Student Attendance for respective lecture of subject
 
         finish();
+    }
+
+    public class DBOperation extends AsyncTask<List<Boolean>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Boolean>... params) {
+
+            int FSMID = databasehelper.getFacultySubjectMappingFSMID(
+                    SUBJECT_ID, divisionNames.get(BRANCH_CODE), branchNames.get(BRANCH_CODE));
+
+            Calendar calendar = Calendar.getInstance();
+
+            SubjectAttendenceInfo subjectAttendenceInfo = new SubjectAttendenceInfo();
+            subjectAttendenceInfo.setFsmid(FSMID);
+            subjectAttendenceInfo.setFlag_ID(1);
+            subjectAttendenceInfo.setDevDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+            subjectAttendenceInfo.setDevTime(calendar.get(Calendar.HOUR) + " : " + calendar.get(Calendar.MINUTE));
+            subjectAttendenceInfo.setsDate("null");
+            subjectAttendenceInfo.setsTime("null");
+            subjectAttendenceInfo.setSync(0);
+
+            databasehelper.insertIntoSubjectAttendanceInfo(subjectAttendenceInfo);
+
+            long SIID = databasehelper.getSubjectAttendanceInfoSIID();
+            List<String> SIDList = databasehelper.getStudentListBranchAndDivisionWise(
+                    SUBJECT_ID, branchNames.get(BRANCH_CODE), divisionNames.get(BRANCH_CODE))[2];
+
+            StudentSubjectAttendance studentSubjectAttendance = new StudentSubjectAttendance();
+
+            for(int i = 0; i < SIDList.size(); i++) {
+                studentSubjectAttendance.setSiid(((int) SIID));
+                studentSubjectAttendance.setSid(Integer.valueOf(SIDList.get(i)));
+                studentSubjectAttendance.setStatus(params[0].get(i));
+                studentSubjectAttendance.setSync(0);
+
+                databasehelper.insertIntoStudentSubjectAttendance(studentSubjectAttendance);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            Toast.makeText(AttendanceActivity.this, "Saving...", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(AttendanceActivity.this, "Attendance Saved", Toast.LENGTH_SHORT).show();
+            databasehelper.close();
+        }
     }
 }
