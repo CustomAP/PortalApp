@@ -47,6 +47,18 @@
             android:name=".attendence.AttendanceActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".subject_details.SubjectDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            <intent-filter>
+            <action android:name="android.intent.action.SubjectDetails" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="Subject Info"
-            android:src="@android:drawable/ic_menu_info_details" />
+            android:src="@drawable/ic_info_subject_details" />
 
         <!--<ImageButton
             android:id="@+id/image_button_subject_info"
